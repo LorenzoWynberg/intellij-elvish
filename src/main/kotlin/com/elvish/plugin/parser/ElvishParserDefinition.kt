@@ -1,6 +1,7 @@
 package com.elvish.plugin.parser
 
 import com.elvish.plugin.ElvishFile
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.PsiParser
@@ -28,7 +29,7 @@ class ElvishParserDefinition : ParserDefinition {
     override fun getStringLiteralElements(): TokenSet = ElvishTokenTypes.STRING_LITERALS
 
     override fun createElement(node: ASTNode): PsiElement {
-        throw UnsupportedOperationException("Not yet implemented: createElement for ${node.elementType}")
+        return ASTWrapperPsiElement(node)
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = ElvishFile(viewProvider)

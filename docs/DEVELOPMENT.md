@@ -1,0 +1,87 @@
+# Development Guide
+
+## Requirements
+
+- **Java 21** - Required by Gradle toolchain
+- **Gradle 8.11+** - Wrapper uses 8.13
+- **Elvish shell** - In PATH for LSP features when testing
+
+## Build Commands
+
+```bash
+./gradlew build        # Build and run tests
+./gradlew runIde       # Run sandbox IDE with plugin
+./gradlew buildPlugin  # Create distributable ZIP
+./gradlew clean        # Clean build artifacts
+```
+
+## Project Structure
+
+```
+src/main/
+├── kotlin/com/elvish/plugin/
+│   ├── ElvishLanguage.kt      # Language registration
+│   ├── ElvishFileType.kt      # File type for .elv
+│   ├── ElvishFile.kt          # PSI file wrapper
+│   ├── ElvishIcons.kt         # Icon definitions
+│   ├── lsp/
+│   │   ├── ElvishLspServerSupportProvider.kt
+│   │   └── ElvishLspServerDescriptor.kt
+│   └── textmate/
+│       └── ElvishTextMateBundleProvider.kt
+└── resources/
+    ├── META-INF/plugin.xml    # Plugin manifest
+    ├── icons/elvish.svg       # File icon
+    └── textmate/
+        └── elvish.tmLanguage.json
+```
+
+## Architecture
+
+### Plugin Components
+
+1. **Language Registration** (`ElvishLanguage.kt`, `ElvishFileType.kt`, `ElvishFile.kt`)
+   - Registers `.elv` extension with the IDE
+   - PSI file wrapper for IntelliJ platform
+
+2. **LSP Integration** (`lsp/` package)
+   - `ElvishLspServerSupportProvider`: Triggers LSP on `.elv` file open
+   - `ElvishLspServerDescriptor`: Configures `elvish -lsp` command
+   - Uses JetBrains official LSP API
+
+3. **Syntax Highlighting** (`textmate/` package)
+   - TextMate grammar for Elvish syntax
+   - Material Palenight-inspired color scheme
+
+4. **Plugin Manifest** (`META-INF/plugin.xml`)
+   - Dependencies: `platform`, `ultimate`, `textmate` modules
+   - Extensions: file type, LSP server support, TextMate bundle
+
+### Key Design Decisions
+
+- **No custom lexer/parser**: LSP handles language intelligence
+- **Project-wide LSP**: Single server per project
+- **TextMate for highlighting**: Simpler than custom lexer, good enough for syntax colors
+- **Requires Elvish in PATH**: Future: configurable path in settings
+
+## Testing
+
+Run the sandbox IDE to test the plugin:
+
+```bash
+./gradlew runIde
+```
+
+This launches a fresh IDE instance with the plugin installed. Open any `.elv` file to test features.
+
+## Debugging
+
+1. Run `./gradlew runIde` with `--debug-jvm`
+2. Attach remote debugger to port 5005
+3. Set breakpoints in plugin code
+
+## Resources
+
+- [IntelliJ Platform SDK](https://plugins.jetbrains.com/docs/intellij/)
+- [JetBrains LSP API](https://plugins.jetbrains.com/docs/intellij/language-server-protocol.html)
+- [TextMate Bundles](https://plugins.jetbrains.com/docs/intellij/textmate.html)

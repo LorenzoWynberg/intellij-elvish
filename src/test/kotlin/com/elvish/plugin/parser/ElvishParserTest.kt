@@ -6,10 +6,14 @@ import org.junit.Test
 
 /**
  * Tests for ElvishParser.
- * Verifies that the parser correctly creates AST structures for various Elvish constructs.
  *
- * These tests use a lightweight marker-tracking approach to verify parser behavior
- * without requiring the full IntelliJ platform test framework.
+ * The parser is intentionally minimal - it groups tokens into statements
+ * without syntax validation. Real language intelligence comes from LSP.
+ *
+ * These tests verify that:
+ * 1. The parser produces a valid AST structure
+ * 2. Statements are properly delimited
+ * 3. Nested structures (braces, brackets, parens) are handled correctly
  */
 class ElvishParserTest {
 
@@ -37,122 +41,112 @@ class ElvishParserTest {
     @Test
     fun testVariableDeclaration() {
         val result = parse("var x = 5")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.VARIABLE_DECLARATION })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testSetStatement() {
         val result = parse("set x = 10")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.ASSIGNMENT })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testFunctionDefinition() {
         val result = parse("fn greet { echo hello }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FUNCTION_DEFINITION })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.BLOCK })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testFunctionWithParameters() {
         val result = parse("fn greet {|name| echo \$name }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FUNCTION_DEFINITION })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.PARAMETER_LIST })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testIfStatement() {
         val result = parse("if \$x { echo yes }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.IF_STATEMENT })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testIfElseStatement() {
         val result = parse("if \$x { echo yes } else { echo no }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.IF_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.ELSE_CLAUSE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testIfElifElseStatement() {
         val result = parse("if \$a { put 1 } elif \$b { put 2 } else { put 3 }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.IF_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.ELIF_CLAUSE })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.ELSE_CLAUSE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testWhileStatement() {
         val result = parse("while \$true { echo loop }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.WHILE_STATEMENT })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testForStatement() {
         val result = parse("for x [1 2 3] { echo \$x }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FOR_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.LIST_LITERAL })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testTryCatchStatement() {
         val result = parse("try { risky } catch e { echo \$e }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.TRY_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.CATCH_CLAUSE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testTryFinallyStatement() {
         val result = parse("try { risky } finally { cleanup }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.TRY_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FINALLY_CLAUSE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testTryCatchFinallyStatement() {
         val result = parse("try { risky } catch e { handle } finally { cleanup }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.TRY_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.CATCH_CLAUSE })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FINALLY_CLAUSE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testPipeline() {
         val result = parse("ls | grep foo | head")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.PIPELINE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testUseDirective() {
         val result = parse("use str")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.USE_DIRECTIVE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testPragmaDirective() {
         val result = parse("pragma unknown-command = disallow")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.PRAGMA_DIRECTIVE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testBinaryExpression() {
         val result = parse("\$x == 5")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.BINARY_EXPRESSION })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
@@ -160,8 +154,8 @@ class ElvishParserTest {
     fun testComparisonOperators() {
         for (op in listOf("==", "!=", "<", ">", "<=", ">=")) {
             val result = parse("\$x $op 5")
-            assertTrue("Binary expression expected for $op",
-                result.markers.any { it.elementType == ElvishElementTypes.BINARY_EXPRESSION })
+            assertTrue("Statement expected for $op",
+                result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         }
     }
 
@@ -169,8 +163,8 @@ class ElvishParserTest {
     fun testArithmeticOperators() {
         for (op in listOf("+", "-", "*", "/", "%")) {
             val result = parse("1 $op 2")
-            assertTrue("Binary expression expected for $op",
-                result.markers.any { it.elementType == ElvishElementTypes.BINARY_EXPRESSION })
+            assertTrue("Statement expected for $op",
+                result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         }
     }
 
@@ -178,37 +172,36 @@ class ElvishParserTest {
     fun testLogicalOperators() {
         for (op in listOf("and", "or", "coalesce")) {
             val result = parse("\$a $op \$b")
-            assertTrue("Binary expression expected for $op",
-                result.markers.any { it.elementType == ElvishElementTypes.BINARY_EXPRESSION })
+            assertTrue("Statement expected for $op",
+                result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         }
     }
 
     @Test
     fun testListLiteral() {
         val result = parse("[1 2 3 4 5]")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.LIST_LITERAL })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testNestedList() {
         val result = parse("[[1 2] [3 4]]")
-        assertEquals("Should have 3 list literals (outer + 2 inner)", 3,
-            result.markers.count { it.elementType == ElvishElementTypes.LIST_LITERAL })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testStringLiteral() {
         val result = parse("echo \"hello world\"")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STRING_LITERAL })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testSingleQuotedString() {
         val result = parse("echo 'hello world'")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STRING_LITERAL })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
@@ -216,22 +209,22 @@ class ElvishParserTest {
     fun testNumberLiterals() {
         for (num in listOf("42", "3.14", "0xFF", "0o77", "0b1010")) {
             val result = parse("put $num")
-            assertTrue("Number literal expected for $num",
-                result.markers.any { it.elementType == ElvishElementTypes.NUMBER_LITERAL })
+            assertTrue("Statement expected for $num",
+                result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         }
     }
 
     @Test
     fun testVariableReference() {
         val result = parse("echo \$myvar")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.VARIABLE_REFERENCE })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testVariableIndexing() {
         val result = parse("put \$list[0]")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.INDEXING })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
@@ -282,54 +275,75 @@ class ElvishParserTest {
     @Test
     fun testTmpDeclaration() {
         val result = parse("tmp x = 5")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.VARIABLE_DECLARATION })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testDelStatement() {
         val result = parse("del x")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.ASSIGNMENT })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testRangeOperator() {
         val result = parse("range 1..10")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.BINARY_EXPRESSION })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testAnonymousFunction() {
         val result = parse("fn {|x| put \$x }")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FUNCTION_DEFINITION })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.PARAMETER_LIST })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
     }
 
     @Test
-    fun testErrorRecoveryMissingBrace() {
-        val result = parse("if \$x { echo yes")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.IF_STATEMENT })
-        assertTrue(result.errors.isNotEmpty())
+    fun testNamespacedCommand() {
+        // This was previously causing parser errors
+        val result = parse("path:dir \$src")
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
+        assertTrue(result.errors.isEmpty())
     }
 
     @Test
-    fun testErrorRecoveryUnexpectedToken() {
-        val result = parse(")))")
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FILE })
-        assertTrue(result.errors.isNotEmpty())
+    fun testComplexExpression() {
+        // Test the expression that was causing errors in the screenshot
+        val result = parse("var script-dir = (path:dir (src)[name])")
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
+        assertTrue(result.errors.isEmpty())
+    }
+
+    @Test
+    fun testNestedBraces() {
+        // Parser should handle nested braces without breaking statement
+        val result = parse("if \$x { if \$y { echo nested } }")
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
+        assertTrue(result.errors.isEmpty())
     }
 
     @Test
     fun testComplexNestedStructure() {
         val code = "fn process {|items| for item \$items { if \$item { echo \$item } } }"
         val result = parse(code)
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FUNCTION_DEFINITION })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FOR_STATEMENT })
-        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.IF_STATEMENT })
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.STATEMENT })
         assertTrue(result.errors.isEmpty())
+    }
+
+    @Test
+    fun testUnbalancedBracesHandled() {
+        // Parser should handle unbalanced braces gracefully (no crash)
+        val result = parse("}")
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FILE })
+    }
+
+    @Test
+    fun testUnbalancedParensHandled() {
+        // Parser should handle unbalanced parens gracefully (no crash)
+        val result = parse(")))")
+        assertTrue(result.markers.any { it.elementType == ElvishElementTypes.FILE })
     }
 }
 

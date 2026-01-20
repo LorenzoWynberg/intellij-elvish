@@ -1,12 +1,12 @@
 {
-  "name": "elvish",
+  "name": "elvish-textmate",
   "displayName": "Elvish",
   "description": "Elvish shell language support",
   "version": "1.0.0",
   "contributes": {
     "languages": [
       {
-        "id": "elvish",
+        "id": "Elvish",
         "aliases": ["Elvish", "elvish"],
         "extensions": [".elv"],
         "configuration": "./language-configuration.json"
@@ -14,7 +14,7 @@
     ],
     "grammars": [
       {
-        "language": "elvish",
+        "language": "Elvish",
         "scopeName": "source.elvish",
         "path": "./elvish.tmLanguage.json"
       }

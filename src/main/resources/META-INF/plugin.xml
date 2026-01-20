@@ -39,6 +39,10 @@
                 language="Elvish"
                 implementationClass="com.elvish.plugin.parser.ElvishParserDefinition"/>
 
+        <lang.syntaxHighlighterFactory
+                language="Elvish"
+                implementationClass="com.elvish.plugin.highlighting.ElvishSyntaxHighlighterFactory"/>
+
         <projectConfigurable
                 parentId="language"
                 instance="com.elvish.plugin.settings.ElvishConfigurable"

@@ -1,0 +1,23 @@
+{
+  "name": "elvish",
+  "displayName": "Elvish",
+  "description": "Elvish shell language support",
+  "version": "1.0.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "elvish",
+        "aliases": ["Elvish", "elvish"],
+        "extensions": [".elv"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "elvish",
+        "scopeName": "source.elvish",
+        "path": "./elvish.tmLanguage.json"
+      }
+    ]
+  }
+}

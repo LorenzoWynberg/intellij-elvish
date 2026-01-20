@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <linearGradient id="elvishGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C792EA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#82AAFF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="14" height="14" rx="3" ry="3" fill="#292D3E"/>
+  <text x="8" y="11.5" font-family="sans-serif" font-size="9" font-weight="bold" fill="url(#elvishGrad)" text-anchor="middle">E</text>
+</svg>

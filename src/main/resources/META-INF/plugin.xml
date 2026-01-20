@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>com.elvish.plugin</id>
+    <name>Elvish</name>
+    <vendor email="lorenzo@wynberg.dev" url="https://github.com/LorenzoWynberg/intellij-elvish">Lorenzo Wynberg</vendor>
+
+    <description><![CDATA[
+    Elvish shell language support for JetBrains IDEs.
+
+    <h3>Features</h3>
+    <ul>
+        <li>File type recognition for .elv files</li>
+        <li>Syntax highlighting</li>
+        <li>LSP integration (code completion, diagnostics, hover docs)</li>
+    </ul>
+
+    <h3>Requirements</h3>
+    <ul>
+        <li>Elvish must be installed and available in PATH</li>
+    </ul>
+
+    <p>Learn more about Elvish at <a href="https://elv.sh">elv.sh</a></p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="Elvish"
+                implementationClass="com.elvish.plugin.ElvishFileType"
+                fieldName="INSTANCE"
+                language="Elvish"
+                extensions="elv"/>
+    </extensions>
+</idea-plugin>

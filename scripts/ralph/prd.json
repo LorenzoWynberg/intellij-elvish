@@ -339,7 +339,7 @@
         "apply saves changes to ElvishSettings",
         "reset restores settings from storage"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-019"],
       "phase": 6,
       "epic": 1,

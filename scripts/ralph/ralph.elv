@@ -277,13 +277,18 @@ fn create-story-branch {|story-id|
     var from-branch = (str:trim-space (get-base-branch-for-story $story-id | slurp))
 
     echo "  Creating branch "$branch-name" from "$from-branch >&2
-    git -C $project-root checkout $from-branch > /dev/null 2>&1
 
-    # Only pull if it's a remote-tracking branch
+    # Fetch and hard reset to avoid merge conflicts
     try {
-      git -C $project-root pull origin $from-branch > /dev/null 2>&1
+      git -C $project-root fetch origin $from-branch > /dev/null 2>&1
     } catch {
-      # Local branch, no remote to pull from
+      # Local branch, no remote to fetch from
+    }
+    git -C $project-root checkout $from-branch > /dev/null 2>&1
+    try {
+      git -C $project-root reset --hard origin/$from-branch > /dev/null 2>&1
+    } catch {
+      # Local branch, no remote to reset to
     }
 
     git -C $project-root checkout -b $branch-name > /dev/null 2>&1
@@ -609,15 +614,15 @@ while (< $current-iteration $max-iterations) {
     write-state $state
     ralph-dim "  State saved locally."
 
-    # Commit and push state to dev so it's persisted
-    ralph-dim "  Committing idle state to dev..."
+    # Sync local dev with remote (PR was merged, so pull latest)
+    ralph-dim "  Syncing local dev with remote..."
     try {
-      git -C $project-root add scripts/ralph/state.json
-      git -C $project-root commit -m "chore: reset state after "$story-id" completion" > /dev/null 2>&1
-      git -C $project-root push origin dev > /dev/null 2>&1
-      ralph-success "  State committed and pushed to dev."
+      git -C $project-root fetch origin dev > /dev/null 2>&1
+      git -C $project-root checkout dev > /dev/null 2>&1
+      git -C $project-root reset --hard origin/dev > /dev/null 2>&1
+      ralph-success "  Local dev synced with remote."
     } catch {
-      ralph-dim "  (state commit skipped - no changes or already up to date)"
+      ralph-dim "  (dev sync skipped - may need manual intervention)"
     }
 
     # Interactive prompt: chance to stop before next story (20s auto-continue)

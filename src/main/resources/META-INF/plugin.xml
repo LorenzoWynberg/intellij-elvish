@@ -22,8 +22,10 @@
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.ultimate</depends>
     <depends>org.jetbrains.plugins.textmate</depends>
+
+    <!-- LSP support requires Ultimate or specific IDE support -->
+    <depends optional="true" config-file="lsp-support.xml">com.intellij.modules.ultimate</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType
@@ -32,9 +34,6 @@
                 fieldName="INSTANCE"
                 language="Elvish"
                 extensions="elv"/>
-
-        <platform.lsp.serverSupportProvider
-                implementation="com.elvish.plugin.lsp.ElvishLspServerSupportProvider"/>
 
         <lang.parserDefinition
                 language="Elvish"

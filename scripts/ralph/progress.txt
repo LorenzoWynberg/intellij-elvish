@@ -600,3 +600,54 @@
 - TextMate syntax highlighting fully functional
 - Custom parser registered and active for Elvish files
 - Project-level settings storage ready for UI integration
+
+---
+
+## 2026-01-20 - STORY-020: Create ElvishConfigurable settings UI
+
+**What was done:**
+- Created ElvishConfigurable.kt implementing Configurable interface
+- Built settings UI with Kotlin UI DSL panel
+- Text field with file browser for selecting elvish executable path
+- Uses FileChooserDescriptorFactory.createSingleFileDescriptor() with browse dialog
+- isModified() compares current field value with stored settings
+- apply() saves changes to ElvishSettings
+- reset() restores field from ElvishSettings storage
+- Updated docs/DEVELOPMENT.md with ElvishConfigurable documentation
+- Performed 2 rounds of refactor checks - no changes needed (minimal, well-organized code)
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/settings/ElvishConfigurable.kt
+
+**Files changed:**
+- docs/DEVELOPMENT.md (added ElvishConfigurable to project structure and architecture)
+
+**Learnings:**
+- Kotlin UI DSL uses `panel { row { ... } }` builder pattern for settings UIs
+- textFieldWithBrowseButton API changed in recent IntelliJ versions - must use FileChooserDescriptor.withTitle() instead of named parameter
+- Configurable requires constructor with Project parameter for project-level settings
+- bindText() connects UI component to a property reference for automatic sync
+
+---
+
+## Summary
+
+**Completed Phases:**
+- Phase 1: Project Setup (STORY-001 to STORY-003)
+- Phase 2: File Type Registration (STORY-004 to STORY-007)
+- Phase 3: LSP Integration (STORY-008 to STORY-009)
+- Phase 4: TextMate Syntax Highlighting (STORY-010 to STORY-013)
+- Phase 5: Parser Definition (STORY-014 to STORY-018)
+- Phase 6 (partial): Settings storage and UI (STORY-019 to STORY-020)
+
+**Remaining Phases:**
+- Phase 6 (remaining): LSP integration with settings, registration (STORY-021 to STORY-022)
+
+**Current state:**
+- Plugin builds successfully with ./gradlew build
+- Plugin runs in sandbox IDE with ./gradlew runIde
+- .elv files recognized with custom icon
+- LSP server starts when opening .elv files (requires elvish in PATH)
+- TextMate syntax highlighting fully functional
+- Custom parser registered and active for Elvish files
+- Project-level settings storage and UI ready for registration

@@ -34,7 +34,8 @@ src/main/
 │   │   ├── ElvishParser.kt           # AST builder
 │   │   └── ElvishParserDefinition.kt # Parser factory
 │   ├── settings/
-│   │   └── ElvishSettings.kt         # Plugin settings storage
+│   │   ├── ElvishSettings.kt         # Plugin settings storage
+│   │   └── ElvishConfigurable.kt     # Settings UI panel
 │   └── textmate/
 │       └── ElvishTextMateBundleProvider.kt
 └── resources/
@@ -70,6 +71,7 @@ src/main/
 
 5. **Settings** (`settings/` package)
    - `ElvishSettings`: Project-level settings stored in `elvish.xml`
+   - `ElvishConfigurable`: Settings UI panel for configuring elvish path
    - Configurable elvish path (default: 'elvish' from PATH)
 
 6. **Plugin Manifest** (`META-INF/plugin.xml`)

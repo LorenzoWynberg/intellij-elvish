@@ -10,11 +10,23 @@ Instructions for Claude Code when working in this repository.
 ./scripts/ralph/ralph.elv  # Run autonomous dev loop
 ```
 
+## Activity Logging (Required)
+
+**Always update the activity log when working on this project.**
+
+- Log location: `docs/activity/YYYY-MM-DD.md`
+- Create new file if today's log doesn't exist
+- Update throughout the session with changes made
+- See `docs/activity/README.md` for template and guidelines
+
+Example: `docs/activity/2026-01-20.md`
+
 ## Documentation
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, architecture, debugging
 - [Contributing Guide](docs/CONTRIBUTING.md) - Branching, commits, PRs
 - [Ralph Guide](docs/RALPH.md) - Autonomous development loop
+- [Changelog](docs/CHANGELOG.md) - Version history
 
 ## Project Overview
 

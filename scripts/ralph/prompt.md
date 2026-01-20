@@ -10,6 +10,8 @@ Read: `scripts/ralph/prd.json` (acceptance criteria), `scripts/ralph/progress.tx
 
 If attempt > 1: check `git log` and `git diff` for previous work.
 
+**Activity Log:** Create or update `docs/activity/YYYY-MM-DD.md` (today's date). Add entry for starting work on {{CURRENT_STORY}}.
+
 ## 2. Scope
 Implement ONLY {{CURRENT_STORY}}. No refactoring unrelated code. Note other issues in Learnings only.
 
@@ -78,6 +80,7 @@ Update these files:
 - `progress.txt`: Add entry with date, changes, learnings (include any refactoring done)
 - `prd.json`: Set `"passes": true`
 - `scripts/ralph/state.json`: Reset to `{"version":1,"current_story":null,"status":"idle","branch":null,"started_at":null,"last_updated":null,"attempts":0,"error":null,"checkpoints":[]}`
+- `docs/activity/YYYY-MM-DD.md`: Update with completed work, files modified, decisions made
 
 Then:
 ```bash
@@ -100,6 +103,7 @@ Output: `<story-complete>{{CURRENT_STORY}}</story-complete>`
 
 ## 9. On BLOCKED
 Don't commit. Don't update prd.json. Add to progress.txt what was tried and why blocked.
+Update `docs/activity/YYYY-MM-DD.md` with blocker details and what was attempted.
 
 Output: `<story-blocked>{{CURRENT_STORY}}</story-blocked>`
 

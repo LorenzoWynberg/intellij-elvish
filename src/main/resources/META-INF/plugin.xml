@@ -97,7 +97,18 @@
 
         <runConfigurationProducer
                 implementation="com.elvish.plugin.run.ElvishRunConfigurationProducer"/>
+
+        <internalFileTemplate name="Elvish Script"/>
     </extensions>
+
+    <actions>
+        <action id="Elvish.NewElvishScript"
+                class="com.elvish.plugin.actions.CreateElvishFileAction"
+                text="Elvish Script"
+                description="Create a new Elvish shell script">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.textmate">
         <bundleProvider implementation="com.elvish.plugin.textmate.ElvishTextMateBundleProvider"/>

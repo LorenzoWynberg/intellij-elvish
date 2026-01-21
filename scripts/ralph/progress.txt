@@ -1379,3 +1379,31 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - setupConfigurationFromContext() should set script path, name, and working directory from context
 - Working directory defaults to script's parent directory for better UX
 - Configuration name uses nameWithoutExtension for cleaner display in Run dropdown
+
+---
+
+## 2026-01-21 - STORY-7.5.1: Create Elvish Script File Template
+
+**What was done:**
+- Created file template at fileTemplates/Elvish Script.elv.ft with shebang and comment header
+- Created description file fileTemplates/Elvish Script.elv.html for New File dialog
+- Created CreateElvishFileAction for "New > Elvish Script" menu action
+- Registered internalFileTemplate extension and action in plugin.xml
+- Created new `actions` package to organize file creation actions
+- Updated docs/DEVELOPMENT.md with actions package and fileTemplates documentation
+
+**Files created:**
+- src/main/resources/fileTemplates/Elvish Script.elv.ft
+- src/main/resources/fileTemplates/Elvish Script.elv.html
+- src/main/kotlin/com/elvish/plugin/actions/CreateElvishFileAction.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added internalFileTemplate and action)
+- docs/DEVELOPMENT.md (added actions package and fileTemplates to project structure)
+
+**Learnings:**
+- IntelliJ file templates use `.ft` suffix and are placed in fileTemplates/ resource directory
+- CreateFileFromTemplateAction provides base functionality for template-based file creation
+- internalFileTemplate extension makes templates available to the IDE
+- Action must be added to NewGroup to appear in "New" context menu
+- Template variables use ${VARIABLE_NAME} syntax for IntelliJ template variable support

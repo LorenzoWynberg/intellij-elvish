@@ -55,11 +55,16 @@ src/main/
 │   │   ├── ElvishRunConfigurationProducer.kt # Context menu run configuration
 │   │   ├── ElvishRunLineMarkerProvider.kt # Gutter run icons for .elv files
 │   │   └── ElvishRunProfileState.kt       # Script execution and output
+│   ├── actions/
+│   │   └── CreateElvishFileAction.kt      # New > Elvish Script file creation
 │   └── textmate/
 │       └── ElvishTextMateBundleProvider.kt
 └── resources/
     ├── META-INF/plugin.xml    # Plugin manifest
     ├── icons/elvish.svg       # File icon
+    ├── fileTemplates/
+    │   ├── Elvish Script.elv.ft    # Elvish script file template
+    │   └── Elvish Script.elv.html  # Template description
     └── textmate/
         └── elvish.tmLanguage.json
 ```
@@ -114,10 +119,16 @@ src/main/
      - `ElvishStructureViewModel`: Controls structure view display and sorting
      - `ElvishStructureViewElement`: Parses file to find functions (fn), variables (var), and imports (use)
 
-8. **Plugin Manifest** (`META-INF/plugin.xml`)
+8. **File Templates** (`actions/` package and `fileTemplates/` resources)
+   - `CreateElvishFileAction`: Action for "New > Elvish Script" in context menu
+   - `Elvish Script.elv.ft`: File template with shebang and comment header
+   - `Elvish Script.elv.html`: Template description shown in New File dialog
+
+9. **Plugin Manifest** (`META-INF/plugin.xml`)
    - Dependencies: `platform`, `textmate` modules, plus optional `lsp` module
    - The `lsp` module is available in all JetBrains IDEs since 2024.2 (free for all users)
-   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view, breadcrumbs, run configuration type, run line marker, run configuration producer
+   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view, breadcrumbs, run configuration type, run line marker, run configuration producer, internal file template
+   - Actions: "New > Elvish Script" for file creation
 
 ### Key Design Decisions
 

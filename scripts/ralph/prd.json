@@ -729,7 +729,7 @@
         "Created file has .elv extension automatically added if missing",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-6.4.5"],
       "phase": 7,
       "epic": 5,

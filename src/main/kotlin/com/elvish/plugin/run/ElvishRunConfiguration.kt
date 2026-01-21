@@ -19,6 +19,10 @@ class ElvishRunConfiguration(
     name: String
 ) : RunConfigurationBase<ElvishRunConfigurationOptions>(project, factory, name) {
 
+    override fun getOptionsClass(): Class<out ElvishRunConfigurationOptions> {
+        return ElvishRunConfigurationOptions::class.java
+    }
+
     override fun getOptions(): ElvishRunConfigurationOptions {
         return super.getOptions() as ElvishRunConfigurationOptions
     }

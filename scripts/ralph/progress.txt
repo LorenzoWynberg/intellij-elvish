@@ -1105,4 +1105,29 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - Error handling for missing Elvish installation
 
 **Next Story:**
-- STORY-4.3.1: Implement Commenter for line comments
+- STORY-4.3.2: Implement Brace Matching
+
+---
+
+## 2026-01-21 - STORY-4.3.1: Implement Commenter for line comments
+
+**What was done:**
+- Created ElvishCommenter implementing com.intellij.lang.Commenter interface
+- getLineCommentPrefix() returns "# " (with space for readability)
+- getBlockCommentPrefix() and getBlockCommentSuffix() return null (Elvish has no block comments)
+- Registered commenter in plugin.xml with lang.commenter extension point
+- Created new `editor` package for editor-related features
+- Updated docs/DEVELOPMENT.md with editor package documentation
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/editor/ElvishCommenter.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added lang.commenter extension)
+- docs/DEVELOPMENT.md (added editor package to project structure and architecture)
+
+**Learnings:**
+- Commenter interface has 5 methods: getLineCommentPrefix, getBlockCommentPrefix/Suffix, getCommentedBlockCommentPrefix/Suffix
+- For languages without block comments, return null for block-related methods
+- Using "# " (with space) provides better readability when toggling comments
+- Editor features should be organized in a dedicated `editor` package

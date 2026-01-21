@@ -520,7 +520,7 @@
         "Multi-line selection comments/uncomments all selected lines",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-3.2.3"],
       "phase": 4,
       "epic": 3,

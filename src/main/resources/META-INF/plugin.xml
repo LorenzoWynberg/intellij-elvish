@@ -66,6 +66,10 @@
                 id="com.elvish.plugin.settings"
                 displayName="Elvish"/>
 
+        <lang.commenter
+                language="Elvish"
+                implementationClass="com.elvish.plugin.editor.ElvishCommenter"/>
+
         <notificationGroup id="Elvish Plugin"
                            displayType="BALLOON"/>
     </extensions>

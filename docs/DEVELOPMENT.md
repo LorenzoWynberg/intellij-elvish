@@ -35,6 +35,8 @@ src/main/
 │   │   ├── ElvishLexer.kt            # Tokenizer
 │   │   ├── ElvishParser.kt           # AST builder
 │   │   └── ElvishParserDefinition.kt # Parser factory
+│   ├── editor/
+│   │   └── ElvishCommenter.kt        # Line comment support (Ctrl+/)
 │   ├── settings/
 │   │   ├── ElvishSettings.kt         # Plugin settings storage
 │   │   └── ElvishConfigurable.kt     # Settings UI panel
@@ -78,10 +80,13 @@ src/main/
    - `ElvishConfigurable`: Settings UI panel for configuring elvish path
    - Configurable elvish path (default: 'elvish' from PATH)
 
-6. **Plugin Manifest** (`META-INF/plugin.xml`)
+6. **Editor Features** (`editor/` package)
+   - `ElvishCommenter`: Line comment support using `# ` prefix (Ctrl+/ / Cmd+/)
+
+7. **Plugin Manifest** (`META-INF/plugin.xml`)
    - Dependencies: `platform`, `textmate` modules, plus optional `lsp` module
    - The `lsp` module is available in all JetBrains IDEs since 2024.2 (free for all users)
-   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings
+   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter
 
 ### Key Design Decisions
 

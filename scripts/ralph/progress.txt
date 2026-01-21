@@ -1352,3 +1352,30 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - Show marker only at first leaf element to avoid duplicate icons in gutter
 - findFirstLeafElement() traverses PSI tree to find first token
 - AllIcons.RunConfigurations.TestState.Run is the standard green play icon
+
+---
+
+## 2026-01-21 - STORY-6.4.5: Implement Run Configuration Producer
+
+**What was done:**
+- Created ElvishRunConfigurationProducer extending LazyRunConfigurationProducer
+- Right-click on .elv file in project tree shows 'Run <filename>'
+- Context menu in editor shows 'Run <filename>'
+- Producer creates configuration with correct script path, name, and working directory
+- Producer reuses existing configuration if one matches the script (isConfigurationFromContext)
+- Registered runConfigurationProducer extension in plugin.xml
+- Updated docs/DEVELOPMENT.md with ElvishRunConfigurationProducer documentation
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/run/ElvishRunConfigurationProducer.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added runConfigurationProducer extension)
+- docs/DEVELOPMENT.md (added ElvishRunConfigurationProducer to project structure)
+
+**Learnings:**
+- LazyRunConfigurationProducer creates configuration factory lazily for better performance
+- isConfigurationFromContext() enables reuse of existing configurations matching the same script
+- setupConfigurationFromContext() should set script path, name, and working directory from context
+- Working directory defaults to script's parent directory for better UX
+- Configuration name uses nameWithoutExtension for cleaner display in Run dropdown

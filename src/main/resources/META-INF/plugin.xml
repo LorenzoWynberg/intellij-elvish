@@ -94,6 +94,9 @@
         <runLineMarkerContributor
                 language="Elvish"
                 implementationClass="com.elvish.plugin.run.ElvishRunLineMarkerProvider"/>
+
+        <runConfigurationProducer
+                implementation="com.elvish.plugin.run.ElvishRunConfigurationProducer"/>
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.plugins.textmate">

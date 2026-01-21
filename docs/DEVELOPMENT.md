@@ -52,6 +52,7 @@ src/main/
 │   │   ├── ElvishRunConfiguration.kt      # Run configuration with validation
 │   │   ├── ElvishRunConfigurationOptions.kt  # Configuration state persistence
 │   │   ├── ElvishRunConfigurationEditor.kt   # Configuration UI
+│   │   ├── ElvishRunConfigurationProducer.kt # Context menu run configuration
 │   │   ├── ElvishRunLineMarkerProvider.kt # Gutter run icons for .elv files
 │   │   └── ElvishRunProfileState.kt       # Script execution and output
 │   └── textmate/
@@ -99,6 +100,7 @@ src/main/
    - `ElvishRunConfiguration`: Stores script path, arguments, working directory, environment variables
    - `ElvishRunConfigurationOptions`: Persistent state storage for configuration properties
    - `ElvishRunConfigurationEditor`: UI for editing configuration settings
+   - `ElvishRunConfigurationProducer`: Creates run configurations from context (right-click menu)
    - `ElvishRunLineMarkerProvider`: Shows gutter run icons at line 1 of .elv files
    - `ElvishRunProfileState`: Executes scripts and displays output in Run tool window
 
@@ -115,7 +117,7 @@ src/main/
 8. **Plugin Manifest** (`META-INF/plugin.xml`)
    - Dependencies: `platform`, `textmate` modules, plus optional `lsp` module
    - The `lsp` module is available in all JetBrains IDEs since 2024.2 (free for all users)
-   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view, breadcrumbs, run configuration type, run line marker
+   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view, breadcrumbs, run configuration type, run line marker, run configuration producer
 
 ### Key Design Decisions
 

@@ -39,6 +39,7 @@ src/main/
 │   │   ├── ElvishCommenter.kt        # Line comment support (Ctrl+/)
 │   │   ├── ElvishBraceMatcher.kt     # Matching braces highlighting
 │   │   ├── ElvishFoldingBuilder.kt   # Code folding for blocks
+│   │   ├── ElvishBreadcrumbsProvider.kt  # Breadcrumbs navigation
 │   │   └── structure/
 │   │       ├── ElvishStructureViewFactory.kt  # Structure view builder factory
 │   │       ├── ElvishStructureViewModel.kt    # Structure view model
@@ -90,6 +91,7 @@ src/main/
    - `ElvishCommenter`: Line comment support using `# ` prefix (Ctrl+/ / Cmd+/)
    - `ElvishBraceMatcher`: Highlights matching braces `{}`, brackets `[]`, and parentheses `()`
    - `ElvishFoldingBuilder`: Code folding for function bodies, control flow blocks, and multi-line lists/maps
+   - `ElvishBreadcrumbsProvider`: Breadcrumbs navigation showing current code context (function, control flow blocks)
    - `structure/` subpackage: Structure view support
      - `ElvishStructureViewFactory`: Creates structure view builders
      - `ElvishStructureViewModel`: Controls structure view display and sorting
@@ -98,7 +100,7 @@ src/main/
 7. **Plugin Manifest** (`META-INF/plugin.xml`)
    - Dependencies: `platform`, `textmate` modules, plus optional `lsp` module
    - The `lsp` module is available in all JetBrains IDEs since 2024.2 (free for all users)
-   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view
+   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder, structure view, breadcrumbs
 
 ### Key Design Decisions
 

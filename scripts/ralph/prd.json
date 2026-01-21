@@ -607,7 +607,7 @@
         "Breadcrumbs respect editor setting to enable/disable",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-5.3.1"],
       "phase": 5,
       "epic": 3,

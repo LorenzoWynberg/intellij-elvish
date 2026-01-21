@@ -1156,3 +1156,29 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - The "structural" flag (3rd param) indicates if the braces define code blocks for folding
 - isPairedBracesAllowedBeforeType controls auto-insertion of closing brackets
 - Brace matching relies on token types from the lexer (ElvishTokenTypes)
+
+---
+
+## 2026-01-21 - STORY-4.3.3: Implement Code Folding
+
+**What was done:**
+- Created ElvishFoldingBuilder implementing com.intellij.lang.folding.FoldingBuilderEx
+- Implemented folding for function definitions, lambda expressions, control flow blocks
+- Implemented folding for multi-line lists and maps
+- Registered folding builder in plugin.xml with lang.foldingBuilder extension point
+- Updated docs/DEVELOPMENT.md with folding builder documentation
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/editor/ElvishFoldingBuilder.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added lang.foldingBuilder extension)
+- docs/DEVELOPMENT.md (added ElvishFoldingBuilder to project structure and architecture)
+
+**Learnings:**
+- FoldingBuilderEx provides more control than FoldingBuilder for complex folding
+- DumbAware interface allows folding to work during indexing
+- FoldingGroup groups related fold regions together
+- Only multi-line constructs should be foldable (single-line blocks are not useful to fold)
+- Context detection via looking backward in PSI tree to find preceding keywords
+- Map literals distinguished from lists by checking for & ampersand after bracket

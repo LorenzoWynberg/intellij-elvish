@@ -564,7 +564,7 @@
         "Default state: functions expanded, deeply nested blocks collapsed",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-4.3.2"],
       "phase": 4,
       "epic": 3,

@@ -1432,3 +1432,28 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - addKind() in buildDialog() allows multiple template options in the same action
 - Description HTML should explain the language feature (module system, use statement)
 - Template can include usage instructions as comments for user convenience
+
+---
+
+## 2026-01-21 - STORY-8.5.1: Create Function Definition Live Template
+
+**What was done:**
+- Created liveTemplates/Elvish.xml with templateSet group='Elvish'
+- Template abbreviation: fn expands to `fn $NAME$ {|$PARAMS$|\n  $END$\n}`
+- Created ElvishTemplateContextType extending TemplateContextType for Elvish file context
+- Registered liveTemplateContext and defaultLiveTemplates extensions in plugin.xml
+- Created new `templates` package for live template context types
+
+**Files created:**
+- src/main/resources/liveTemplates/Elvish.xml
+- src/main/kotlin/com/elvish/plugin/templates/ElvishTemplateContextType.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added liveTemplateContext and defaultLiveTemplates extensions)
+
+**Learnings:**
+- liveTemplateContext extension requires contextId attribute matching the XML context option name
+- Template variables use alwaysStopAt="true" to ensure Tab navigation
+- $END$ is a special variable for final cursor position after expansion
+- Template uses `&#10;` for newlines in XML value attribute
+- ElvishTemplateContextType checks file.language == ElvishLanguage.INSTANCE for context matching

@@ -771,7 +771,7 @@
         "Tab key cycles through template variables",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-7.5.2"],
       "phase": 8,
       "epic": 5,

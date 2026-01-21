@@ -1,0 +1,9 @@
+<templateSet group="Elvish">
+  <template name="fn" value="fn $NAME$ {|$PARAMS$|&#10;  $END$&#10;}" description="Function definition" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="&quot;name&quot;" alwaysStopAt="true" />
+    <variable name="PARAMS" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+</templateSet>

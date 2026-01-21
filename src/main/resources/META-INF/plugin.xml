@@ -100,6 +100,12 @@
 
         <internalFileTemplate name="Elvish Script"/>
         <internalFileTemplate name="Elvish Module"/>
+
+        <liveTemplateContext
+                contextId="ELVISH"
+                implementation="com.elvish.plugin.templates.ElvishTemplateContextType"/>
+
+        <defaultLiveTemplates file="/liveTemplates/Elvish.xml"/>
     </extensions>
 
     <actions>

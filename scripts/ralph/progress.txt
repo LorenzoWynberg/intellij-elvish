@@ -1296,3 +1296,33 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - RawCommandLineEditor handles argument parsing, quoting, and escaping automatically
 - UI components can be enabled/disabled dynamically via addActionListener on checkboxes
 - Working directory defaults to project.basePath if not explicitly set
+
+---
+
+## 2026-01-21 - STORY-6.4.3: Implement Run Configuration Execution
+
+**What was done:**
+- Created ElvishRunProfileState extending CommandLineState
+- Execute script using: elvish <script.elv> [args...]
+- Use configured Elvish binary path from ElvishSettings
+- Pass environment variables to process
+- Set working directory correctly
+- Output appears in Run tool window with proper colors (stdout/stderr)
+- Exit code displayed when script completes
+- Stop button terminates running script (KillableColoredProcessHandler)
+- Re-run button works correctly (DefaultExecutionResult with createActions)
+- Updated ElvishRunConfiguration.getState() to return ElvishRunProfileState
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/run/ElvishRunProfileState.kt
+
+**Files changed:**
+- src/main/kotlin/com/elvish/plugin/run/ElvishRunConfiguration.kt (updated getState())
+- docs/DEVELOPMENT.md (added ElvishRunProfileState to documentation)
+
+**Learnings:**
+- CommandLineState provides standard run infrastructure (console, actions, etc.)
+- KillableColoredProcessHandler displays colored stdout/stderr and supports stop button
+- ProcessTerminatedListener automatically displays exit code when process finishes
+- Custom argument parser needed for proper handling of quoted strings in script arguments
+- getElvishPath() checks useElvishFromSettings flag to decide between project settings or custom path

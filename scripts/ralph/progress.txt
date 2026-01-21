@@ -1214,3 +1214,29 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - Function parameters extracted from {|param1 param2|} Elvish syntax
 - AllIcons.Nodes.* provides standard icons consistent with other language plugins
 - SortableTreeElement interface enables alpha sorting in structure view
+
+---
+
+## 2026-01-21 - STORY-5.3.2: Implement Breadcrumbs
+
+**What was done:**
+- Created ElvishBreadcrumbsProvider implementing BreadcrumbsProvider
+- Shows function name when cursor is inside a function body (displays "fn name")
+- Shows block type (if/for/while/try/catch/finally/elif/else) when inside control structures
+- Shows lambda expressions with λ symbol when inside anonymous functions
+- Registered in plugin.xml with breadcrumbsInfoProvider extension point
+- Updated docs/DEVELOPMENT.md with breadcrumbs documentation
+
+**Files created:**
+- src/main/kotlin/com/elvish/plugin/editor/ElvishBreadcrumbsProvider.kt
+
+**Files changed:**
+- src/main/resources/META-INF/plugin.xml (added breadcrumbsInfoProvider extension)
+- docs/DEVELOPMENT.md (added ElvishBreadcrumbsProvider to project structure and architecture)
+
+**Learnings:**
+- BreadcrumbsProvider interface has getLanguages(), acceptElement(), getElementInfo(), getElementTooltip()
+- IntelliJ framework handles nested breadcrumbs by traversing parent elements automatically
+- Navigation and enable/disable settings are handled by the framework
+- Similar token collection pattern to structure view works well for identifying structural elements
+- Lambda expressions distinguished by {| pattern at start of block

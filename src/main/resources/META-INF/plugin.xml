@@ -82,6 +82,9 @@
                 language="Elvish"
                 implementationClass="com.elvish.plugin.editor.structure.ElvishStructureViewFactory"/>
 
+        <breadcrumbsInfoProvider
+                implementation="com.elvish.plugin.editor.ElvishBreadcrumbsProvider"/>
+
         <notificationGroup id="Elvish Plugin"
                            displayType="BALLOON"/>
     </extensions>

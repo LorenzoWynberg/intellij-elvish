@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <defs>
+    <linearGradient id="elvishGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C792EA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#82AAFF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- 2px padding around perimeter, icon content is 36x36 centered -->
+  <rect x="2" y="2" width="36" height="36" rx="6" ry="6" fill="#292D3E"/>
+  <text x="20" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="url(#elvishGrad)" text-anchor="middle">E</text>
+</svg>

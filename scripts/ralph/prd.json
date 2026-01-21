@@ -155,7 +155,7 @@
         "./gradlew buildPlugin produces valid ZIP",
         "Plugin passes JetBrains Plugin Verifier"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-109"],
       "phase": 3,
       "epic": 2,

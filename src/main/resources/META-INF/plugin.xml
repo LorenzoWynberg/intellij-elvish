@@ -4,21 +4,38 @@
     <vendor email="lorenzo@wynberg.dev" url="https://github.com/LorenzoWynberg/intellij-elvish">Lorenzo Wynberg</vendor>
 
     <description><![CDATA[
-    Elvish shell language support for JetBrains IDEs.
+    <p>Full-featured <a href="https://elv.sh">Elvish shell</a> language support for all JetBrains IDEs.</p>
 
     <h3>Features</h3>
     <ul>
-        <li>File type recognition for .elv files</li>
-        <li>Syntax highlighting</li>
-        <li>LSP integration (code completion, diagnostics, hover docs)</li>
+        <li><strong>Syntax Highlighting</strong> - Full TextMate grammar support with colors for keywords, strings, variables, operators, and more</li>
+        <li><strong>Code Completion</strong> - Smart completions for built-in functions, variables, and module functions</li>
+        <li><strong>Error Diagnostics</strong> - Real-time syntax error detection and highlighting</li>
+        <li><strong>Hover Documentation</strong> - View documentation for functions and variables on hover</li>
+        <li><strong>Go to Definition</strong> - Navigate to function and variable definitions</li>
+        <li><strong>File Type Recognition</strong> - Automatic recognition of .elv files with custom icon</li>
     </ul>
+
+    <h3>Powered by Elvish LSP</h3>
+    <p>This plugin uses Elvish's built-in Language Server Protocol (<code>elvish -lsp</code>) to provide intelligent code assistance. The LSP server starts automatically when you open an Elvish file.</p>
 
     <h3>Requirements</h3>
     <ul>
-        <li>Elvish must be installed and available in PATH</li>
+        <li><strong>Elvish 0.18.0 or later</strong> - <a href="https://elv.sh/get/">Install Elvish</a></li>
+        <li><strong>JetBrains IDE 2024.3 or later</strong> - Any IDE (IntelliJ IDEA, WebStorm, PyCharm, etc.)</li>
     </ul>
 
-    <p>Learn more about Elvish at <a href="https://elv.sh">elv.sh</a></p>
+    <h3>Configuration</h3>
+    <p>Configure the Elvish binary path in <em>Settings/Preferences &gt; Languages &amp; Frameworks &gt; Elvish</em></p>
+
+    <h3>Getting Started</h3>
+    <ol>
+        <li>Install <a href="https://elv.sh/get/">Elvish</a> on your system</li>
+        <li>Open any <code>.elv</code> file in your JetBrains IDE</li>
+        <li>Start coding with full language support!</li>
+    </ol>
+
+    <p><strong>Open Source:</strong> <a href="https://github.com/LorenzoWynberg/intellij-elvish">GitHub Repository</a></p>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>

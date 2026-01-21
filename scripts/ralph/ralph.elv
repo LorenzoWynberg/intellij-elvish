@@ -151,9 +151,7 @@ while (< $i (count $args)) {
 
 # Check for required dependencies
 for cmd [jq git claude prettier] {
-  try {
-    command -v $cmd > /dev/null 2>&1
-  } catch {
+  if (not (has-external $cmd)) {
     ralph-error "Required command '"$cmd"' not found in PATH"
     exit 1
   }
@@ -228,7 +226,15 @@ fn get-story-info {|story-id|
 fn create-story-branch {|story-id|
   # Get story info for branch naming
   var info = (str:trim-space (get-story-info $story-id | slurp))
+  if (eq $info "") {
+    ralph-error "Failed to get story info for "$story-id
+    fail "Story not found in PRD"
+  }
   var parts = [(str:split "\t" $info)]
+  if (< (count $parts) 3) {
+    ralph-error "Invalid story info format for "$story-id": "$info
+    fail "Invalid story info"
+  }
   var phase = $parts[0]
   var epic = $parts[1]
   var story-num = $parts[2]
@@ -502,7 +508,7 @@ while (< $current-iteration $max-iterations) {
   }
 
   # Show output file size as indicator of activity
-  var file-size = (wc -c < $output-file | str:trim-space (one))
+  var file-size = (wc -c < $output-file | one | str:trim-space)
   ralph-dim "  Output size: "$file-size" bytes"
   echo ""
 

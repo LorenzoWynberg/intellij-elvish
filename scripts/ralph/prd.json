@@ -670,7 +670,7 @@
         "Re-run button works correctly",
         "./gradlew build succeeds"
       ],
-      "passes": false,
+      "passes": true,
       "depends_on": ["STORY-6.4.2"],
       "phase": 6,
       "epic": 4,

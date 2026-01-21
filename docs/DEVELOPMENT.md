@@ -51,7 +51,8 @@ src/main/
 │   │   ├── ElvishConfigurationType.kt     # Run configuration type
 │   │   ├── ElvishRunConfiguration.kt      # Run configuration with validation
 │   │   ├── ElvishRunConfigurationOptions.kt  # Configuration state persistence
-│   │   └── ElvishRunConfigurationEditor.kt   # Configuration UI
+│   │   ├── ElvishRunConfigurationEditor.kt   # Configuration UI
+│   │   └── ElvishRunProfileState.kt       # Script execution and output
 │   └── textmate/
 │       └── ElvishTextMateBundleProvider.kt
 └── resources/
@@ -96,7 +97,8 @@ src/main/
    - `ElvishConfigurationType`: Registers "Elvish" run configuration type in Run > Edit Configurations
    - `ElvishRunConfiguration`: Stores script path, arguments, working directory, environment variables
    - `ElvishRunConfigurationOptions`: Persistent state storage for configuration properties
-   - `ElvishRunConfigurationEditor`: Basic UI for editing configuration (will be enhanced)
+   - `ElvishRunConfigurationEditor`: UI for editing configuration settings
+   - `ElvishRunProfileState`: Executes scripts and displays output in Run tool window
 
 7. **Editor Features** (`editor/` package)
    - `ElvishCommenter`: Line comment support using `# ` prefix (Ctrl+/ / Cmd+/)

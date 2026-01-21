@@ -69,9 +69,8 @@ class ElvishRunConfiguration(
         return ElvishRunConfigurationEditor(project)
     }
 
-    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
-        // Will be implemented in STORY-6.4.3
-        return null
+    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
+        return ElvishRunProfileState(environment, this)
     }
 
     override fun checkConfiguration() {

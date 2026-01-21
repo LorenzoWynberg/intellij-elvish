@@ -37,7 +37,8 @@ src/main/
 │   │   └── ElvishParserDefinition.kt # Parser factory
 │   ├── editor/
 │   │   ├── ElvishCommenter.kt        # Line comment support (Ctrl+/)
-│   │   └── ElvishBraceMatcher.kt     # Matching braces highlighting
+│   │   ├── ElvishBraceMatcher.kt     # Matching braces highlighting
+│   │   └── ElvishFoldingBuilder.kt   # Code folding for blocks
 │   ├── settings/
 │   │   ├── ElvishSettings.kt         # Plugin settings storage
 │   │   └── ElvishConfigurable.kt     # Settings UI panel
@@ -84,11 +85,12 @@ src/main/
 6. **Editor Features** (`editor/` package)
    - `ElvishCommenter`: Line comment support using `# ` prefix (Ctrl+/ / Cmd+/)
    - `ElvishBraceMatcher`: Highlights matching braces `{}`, brackets `[]`, and parentheses `()`
+   - `ElvishFoldingBuilder`: Code folding for function bodies, control flow blocks, and multi-line lists/maps
 
 7. **Plugin Manifest** (`META-INF/plugin.xml`)
    - Dependencies: `platform`, `textmate` modules, plus optional `lsp` module
    - The `lsp` module is available in all JetBrains IDEs since 2024.2 (free for all users)
-   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher
+   - Extensions: file type, LSP server support, TextMate bundle, parser definition, project settings, commenter, brace matcher, folding builder
 
 ### Key Design Decisions
 

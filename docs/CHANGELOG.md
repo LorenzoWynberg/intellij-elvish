@@ -5,9 +5,19 @@ All notable changes to the Elvish JetBrains plugin will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2026-01-21
+## [1.0.0] - Unreleased
 
 ### Added
+
+#### Core
+- Syntax highlighting via custom lexer with full token support
+- File type registration for `.elv` files with custom icon
+- LSP integration for all JetBrains IDEs (completion, diagnostics, hover, go-to-definition)
+- TextMate bundle for syntax highlighting
+- Settings panel for Elvish binary path configuration
+- Minimal parser for PSI tree structure
+- Error handling with user notification when Elvish binary is missing
+- Plugin icons for JetBrains Marketplace (light and dark themes)
 
 #### Editor Enhancements
 - **Commenter**: Toggle line comments with `Ctrl+/` (`Cmd+/` on Mac) using `# ` prefix
@@ -34,31 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Control Flow: `if`, `ife`, `for`, `while`, `try`, `tryf`
   - Common Patterns: `use`, `var`, `set`, `each`, `peach`, `lambda`, `map`, `list`
 
-## [1.0.0] - 2026-01-21
-
-### Added
-- Syntax highlighting via custom lexer with full token support
-- File type registration for `.elv` files with custom icon
-- LSP integration for all JetBrains IDEs (completion, diagnostics, hover, go-to-definition)
-- TextMate bundle for syntax highlighting
-- Settings panel for Elvish binary path configuration
-- Minimal parser for PSI tree structure
-- Error handling with user notification when Elvish binary is missing
-- Plugin icons for JetBrains Marketplace (light and dark themes)
-
-### Changed
-- **Cross-IDE support**: Changed from `com.intellij.modules.ultimate` to `com.intellij.modules.lsp` module dependency, enabling LSP features in all JetBrains IDEs (not just IntelliJ Ultimate)
-- LSP features are now free for all users in any JetBrains IDE 2024.3+
-
-### Fixed
-- Parser no longer generates false syntax errors
-- Simplified parser accepts all valid Elvish syntax
-- TextMate bundle properly packaged with language configuration
-
-## [0.1.0] - TBD
-
-### Added
-- Initial release
-- Basic file type support
-- Syntax highlighting
-- LSP integration (Ultimate only)
+### Notes
+- Cross-IDE support: Works in all JetBrains IDEs 2024.3+ (IntelliJ, WebStorm, PyCharm, etc.)
+- LSP features are free for all users

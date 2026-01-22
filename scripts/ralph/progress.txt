@@ -1510,3 +1510,32 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - `each` and `peach` are common Elvish iteration patterns (callback-based)
 - Lambda expressions use `{|params| body}` syntax inline
 - Map literals use `[&key=value]` syntax with ampersand prefix for keys
+
+---
+
+## 2026-01-22 - STORY-8.5.4: Register Live Templates with Elvish Context
+
+**What was done:**
+- Verified all acceptance criteria are met (code from STORY-8.5.1 already implemented this)
+- ElvishTemplateContextType already extends TemplateContextType
+- Context type checks file.language == ElvishLanguage.INSTANCE in isInContext()
+- liveTemplateContext extension registered in plugin.xml with contextId="ELVISH"
+- defaultLiveTemplates extension registered in plugin.xml pointing to /liveTemplates/Elvish.xml
+- All 15 templates in Elvish.xml use ELVISH context option
+- Build passes (./gradlew build succeeds)
+- runIde launches without plugin errors
+
+**Files (already existed - verification only):**
+- src/main/kotlin/com/elvish/plugin/templates/ElvishTemplateContextType.kt (17 lines)
+- src/main/resources/liveTemplates/Elvish.xml (114 lines)
+- src/main/resources/META-INF/plugin.xml (liveTemplateContext and defaultLiveTemplates extensions)
+
+**Refactoring:**
+- Round 1: No changes needed - all files well under 300 lines
+- Round 2: No issues found - all registrations correct
+
+**Learnings:**
+- Live template context types should be registered with contextId matching XML option name
+- templateSet group="Elvish" makes templates appear in Settings > Editor > Live Templates > Elvish
+- Context option `<option name="ELVISH" value="true" />` restricts templates to Elvish files only
+- STORY-8.5.4 was essentially a verification story - all code was implemented in STORY-8.5.1

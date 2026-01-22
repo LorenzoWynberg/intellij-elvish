@@ -15,7 +15,9 @@ Consolidated learnings from development. Updated by Claude and Ralph after each 
 | [testing.md](testing.md) | Testing patterns and utilities |
 | [build.md](build.md) | Build, Gradle, environment setup |
 
-Each file has its own **Gotchas** section at the bottom for topic-specific mistakes to avoid.
+Each file has:
+- **TL;DR** at the top - one-line summary for quick scanning
+- **Gotchas** at the bottom - topic-specific mistakes to avoid
 
 ## How This Works
 

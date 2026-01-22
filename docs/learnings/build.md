@@ -1,5 +1,7 @@
 # Build & Environment
 
+> **TL;DR:** Java 17+ required, `./gradlew build` for test, `runIde` for sandbox, `buildPlugin` for ZIP, untilBuild open-ended.
+
 Learnings about Gradle, build configuration, and environment setup.
 
 ## Gradle Configuration

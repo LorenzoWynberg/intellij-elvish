@@ -1,5 +1,7 @@
 # Templates
 
+> **TL;DR:** File templates (`.ft` files, `CreateFileFromTemplateAction`), live templates (XML with `liveTemplateContext`, `$END$` for cursor position).
+
 Learnings about file templates and live templates.
 
 ## File Templates

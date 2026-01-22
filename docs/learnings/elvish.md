@@ -1,5 +1,7 @@
 # Elvish Language
 
+> **TL;DR:** Syntax quirks (`catch e` not `catch (e)`, `for x $list` not `for x in $list`), operators (`..` range, `$@` explode), and lambda/function patterns.
+
 Learnings about the Elvish shell language.
 
 ## Syntax

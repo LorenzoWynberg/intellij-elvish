@@ -1,5 +1,7 @@
 # IntelliJ Plugin Development
 
+> **TL;DR:** Language/FileType/PSI setup, TextMate via `org.jetbrains.plugins.textmate`, Settings with `@State`/`PersistentStateComponent`, icons in META-INF.
+
 Core patterns for IntelliJ plugin development.
 
 ## Project Setup

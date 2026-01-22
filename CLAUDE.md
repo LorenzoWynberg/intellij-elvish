@@ -40,7 +40,7 @@ If correcting a misconception, note it in the activity log so we know what chang
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, architecture, debugging
 - [Contributing Guide](docs/CONTRIBUTING.md) - Branching, commits, PRs
-- [Ralph Guide](docs/RALPH.md) - Autonomous development loop
+- [Ralph Guide](docs/ralph/RALPH.md) - Autonomous development loop
 - [Changelog](docs/CHANGELOG.md) - Version history
 - [Learnings](docs/learnings/) - Consolidated patterns and gotchas
 
@@ -59,7 +59,7 @@ JetBrains plugin for Elvish shell language support. Uses Elvish's built-in LSP (
 
 ## Workflow
 
-Use [Ralph](docs/RALPH.md) for autonomous development, or follow manual workflow:
+Use [Ralph](docs/ralph/RALPH.md) for autonomous development, or follow manual workflow:
 
 1. Create branch from `dev`
 2. Implement changes

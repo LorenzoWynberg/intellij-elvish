@@ -56,7 +56,7 @@ The plugin will be available on the JetBrains Marketplace.
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, test, architecture
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to contribute
-- [Ralph Guide](docs/RALPH.md) - Autonomous development loop
+- [Ralph Guide](docs/ralph/RALPH.md) - Autonomous development loop
 
 ## Resources
 

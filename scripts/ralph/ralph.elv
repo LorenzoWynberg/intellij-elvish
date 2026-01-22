@@ -205,10 +205,17 @@ fn current-branch {
 
 fn branch-exists {|branch|
   try {
-    git -C $project-root rev-parse --verify $branch > /dev/null 2>&1
+    # Check local branches
+    git -C $project-root rev-parse --verify "refs/heads/"$branch > /dev/null 2>&1
     put $true
   } catch {
-    put $false
+    try {
+      # Check remote branches
+      git -C $project-root rev-parse --verify "refs/remotes/origin/"$branch > /dev/null 2>&1
+      put $true
+    } catch {
+      put $false
+    }
   }
 }
 
@@ -494,17 +501,29 @@ while (< $current-iteration $max-iterations) {
 
   cd $project-root
   var claude-start = (date +%s)
+  var claude-timeout = 1800  # 30 minutes
+  var prompt-tmp = (mktemp)
+  echo $iteration-prompt > $prompt-tmp
   try {
     # Always run in quiet mode - streaming doesn't work reliably
     # Claude output is captured to file for signal detection
-    echo $iteration-prompt | claude --dangerously-skip-permissions --print > $output-file 2>&1
+    # Use timeout to prevent indefinite hangs
+    timeout $claude-timeout bash -c 'claude --dangerously-skip-permissions --print < "$1"' _ $prompt-tmp > $output-file 2>&1
     var claude-end = (date +%s)
     var claude-duration = (- $claude-end $claude-start)
     echo $C_DIM"───────────────────────────────────────────────────"$C_RESET
     ralph-success "Claude execution completed in "$claude-duration"s"
   } catch e {
+    var claude-end = (date +%s)
+    var claude-duration = (- $claude-end $claude-start)
     echo $C_DIM"───────────────────────────────────────────────────"$C_RESET
-    ralph-error "Claude execution error: "$e
+    if (>= $claude-duration $claude-timeout) {
+      ralph-error "Claude execution TIMED OUT after "$claude-timeout"s"
+    } else {
+      ralph-error "Claude execution error: "$e
+    }
+  } finally {
+    rm -f $prompt-tmp
   }
 
   # Show output file size as indicator of activity

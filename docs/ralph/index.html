@@ -30,10 +30,11 @@
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.7;
             padding: 2rem;
             max-width: 1400px;
             margin: 0 auto;
+            font-size: 1.1rem;
         }
 
         h1, h2, h3 {
@@ -42,16 +43,24 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             text-align: center;
             margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
         }
 
         .subtitle {
             text-align: center;
             color: var(--text-dim);
             margin-bottom: 3rem;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         section {
@@ -86,7 +95,7 @@
 
         .card p {
             color: var(--text-dim);
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
 
         /* Flow Diagram */
@@ -260,13 +269,14 @@
         .loop-arrow {
             position: absolute;
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
-        .arrow-1 { top: 80px; right: 80px; transform: rotate(45deg); }
-        .arrow-2 { bottom: 80px; right: 80px; transform: rotate(135deg); }
-        .arrow-3 { bottom: 80px; left: 80px; transform: rotate(-135deg); }
-        .arrow-4 { top: 80px; left: 80px; transform: rotate(-45deg); }
+        /* Clockwise flow: Read → Work → Update → Next → Read */
+        .arrow-1 { top: 100px; right: 100px; } /* Read → Work */
+        .arrow-2 { bottom: 100px; right: 100px; } /* Work → Update */
+        .arrow-3 { bottom: 100px; left: 100px; } /* Update → Next */
+        .arrow-4 { top: 100px; left: 100px; } /* Next → Read */
 
         /* Collaboration */
         .collab-container {
@@ -483,10 +493,10 @@
                 <div class="loop-node write">✍️ Update<br>learnings/</div>
                 <div class="loop-node next">🔄 Next<br>iteration</div>
 
-                <div class="loop-arrow arrow-1">↘</div>
-                <div class="loop-arrow arrow-2">↙</div>
-                <div class="loop-arrow arrow-3">↖</div>
-                <div class="loop-arrow arrow-4">↗</div>
+                <div class="loop-arrow arrow-1">→</div>
+                <div class="loop-arrow arrow-2">↓</div>
+                <div class="loop-arrow arrow-3">←</div>
+                <div class="loop-arrow arrow-4">↑</div>
             </div>
         </div>
         <div class="card" style="max-width: 700px; margin: 0 auto;">

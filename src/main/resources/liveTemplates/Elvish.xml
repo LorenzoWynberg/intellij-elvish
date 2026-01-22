@@ -6,4 +6,48 @@
       <option name="ELVISH" value="true" />
     </context>
   </template>
+
+  <template name="if" value="if $COND$ {&#10;  $END$&#10;}" description="If conditional" toReformat="false" toShortenFQNames="true">
+    <variable name="COND" expression="" defaultValue="&quot;condition&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+
+  <template name="ife" value="if $COND$ {&#10;  $THEN$&#10;} else {&#10;  $END$&#10;}" description="If-else conditional" toReformat="false" toShortenFQNames="true">
+    <variable name="COND" expression="" defaultValue="&quot;condition&quot;" alwaysStopAt="true" />
+    <variable name="THEN" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+
+  <template name="for" value="for $VAR$ $CONTAINER$ {&#10;  $END$&#10;}" description="For loop over container" toReformat="false" toShortenFQNames="true">
+    <variable name="VAR" expression="" defaultValue="&quot;item&quot;" alwaysStopAt="true" />
+    <variable name="CONTAINER" expression="" defaultValue="&quot;$items&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+
+  <template name="while" value="while $COND$ {&#10;  $END$&#10;}" description="While loop" toReformat="false" toShortenFQNames="true">
+    <variable name="COND" expression="" defaultValue="&quot;condition&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+
+  <template name="try" value="try {&#10;  $CODE$&#10;} catch e {&#10;  $END$&#10;}" description="Try-catch block" toReformat="false" toShortenFQNames="true">
+    <variable name="CODE" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
+
+  <template name="tryf" value="try {&#10;  $CODE$&#10;} finally {&#10;  $END$&#10;}" description="Try-finally block" toReformat="false" toShortenFQNames="true">
+    <variable name="CODE" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="ELVISH" value="true" />
+    </context>
+  </template>
 </templateSet>

@@ -1457,3 +1457,28 @@ Stories now use the format STORY-{phase}.{epic}.{story}.
 - $END$ is a special variable for final cursor position after expansion
 - Template uses `&#10;` for newlines in XML value attribute
 - ElvishTemplateContextType checks file.language == ElvishLanguage.INSTANCE for context matching
+
+---
+
+## 2026-01-22 - STORY-8.5.2: Create Control Flow Live Templates
+
+**What was done:**
+- Added 6 control flow live templates to liveTemplates/Elvish.xml:
+  - `if` - basic conditional: `if $COND$ { $END$ }`
+  - `ife` - if-else: `if $COND$ { $THEN$ } else { $END$ }`
+  - `for` - for loop: `for $VAR$ $CONTAINER$ { $END$ }`
+  - `while` - while loop: `while $COND$ { $END$ }`
+  - `try` - try-catch: `try { $CODE$ } catch e { $END$ }`
+  - `tryf` - try-finally: `try { $CODE$ } finally { $END$ }`
+- All templates have descriptive names shown in completion popup
+- All templates limited to ELVISH context
+- Build passes (./gradlew build succeeds)
+
+**Files changed:**
+- src/main/resources/liveTemplates/Elvish.xml (added 6 control flow templates)
+
+**Learnings:**
+- Elvish uses `catch e` syntax where `e` is the error variable
+- For loops use `for var container` syntax without `in` keyword
+- Template default values help users understand expected input format
+- Consistent template structure makes maintenance easier

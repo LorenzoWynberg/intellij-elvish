@@ -4,663 +4,390 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ralph v4 - Autonomous Development System</title>
-    <style>
-        :root {
-            --bg: #1a1b26;
-            --bg-light: #24283b;
-            --bg-lighter: #414868;
-            --text: #c0caf5;
-            --text-dim: #565f89;
-            --accent: #7aa2f7;
-            --green: #9ece6a;
-            --red: #f7768e;
-            --yellow: #e0af68;
-            --purple: #bb9af7;
-            --cyan: #7dcfff;
-            --orange: #ff9e64;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        h1, h2, h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-dim);
-            margin-bottom: 3rem;
-            font-size: 1.2rem;
-        }
-
-        section {
-            margin-bottom: 4rem;
-        }
-
-        /* Overview Cards */
-        .overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .card {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--bg-lighter);
-        }
-
-        .card h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card .icon {
-            font-size: 1.5rem;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-        }
-
-        /* Flow Diagram */
-        .flow-container {
-            background: var(--bg-light);
-            border-radius: 16px;
-            padding: 2rem;
-            overflow-x: auto;
-        }
-
-        .flow {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            min-width: 900px;
-        }
-
-        .flow-step {
-            flex: 1;
-            text-align: center;
-            padding: 1rem;
-            position: relative;
-        }
-
-        .flow-step::after {
-            content: '→';
-            position: absolute;
-            right: -12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-
-        .flow-step:last-child::after {
-            content: '';
-        }
-
-        .step-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-        }
-
-        .step-1 .step-icon { background: var(--purple); }
-        .step-2 .step-icon { background: var(--cyan); }
-        .step-3 .step-icon { background: var(--yellow); }
-        .step-4 .step-icon { background: var(--green); }
-        .step-5 .step-icon { background: var(--accent); }
-
-        .step-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-        }
-
-        /* Knowledge Architecture */
-        .knowledge-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .knowledge-grid {
-                grid-template-columns: 1fr;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                }
             }
         }
-
-        .knowledge-box {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border-left: 4px solid;
+    </script>
+    <style>
+        body { background: #0c0c0c; }
+        .gradient-border {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
         }
-
-        .knowledge-box.primary { border-color: var(--green); }
-        .knowledge-box.context { border-color: var(--cyan); }
-        .knowledge-box.history { border-color: var(--purple); }
-
-        .knowledge-box h3 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .knowledge-box .path {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 0.75rem;
-        }
-
-        .knowledge-box ul {
-            list-style: none;
-            font-size: 0.9rem;
-        }
-
-        .knowledge-box li {
-            padding: 0.25rem 0;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .knowledge-box li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--text-dim);
-        }
-
-        /* Learning Loop */
-        .loop-container {
-            display: flex;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .loop-diagram {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .loop-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: var(--bg-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            text-align: center;
-            border: 3px solid var(--accent);
-            z-index: 10;
-        }
-
-        .loop-node {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: var(--bg-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 0.85rem;
-            padding: 0.5rem;
-            border: 2px solid var(--bg-lighter);
-        }
-
-        .loop-node.read { top: 20px; left: 50%; transform: translateX(-50%); border-color: var(--cyan); }
-        .loop-node.work { top: 50%; right: 20px; transform: translateY(-50%); border-color: var(--yellow); }
-        .loop-node.write { bottom: 20px; left: 50%; transform: translateX(-50%); border-color: var(--green); }
-        .loop-node.next { top: 50%; left: 20px; transform: translateY(-50%); border-color: var(--purple); }
-
-        .loop-arrow {
-            position: absolute;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        .arrow-1 { top: 80px; right: 80px; transform: rotate(45deg); }
-        .arrow-2 { bottom: 80px; right: 80px; transform: rotate(135deg); }
-        .arrow-3 { bottom: 80px; left: 80px; transform: rotate(-135deg); }
-        .arrow-4 { top: 80px; left: 80px; transform: rotate(-45deg); }
-
-        /* Collaboration */
-        .collab-container {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .agent {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .agent-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            margin: 0 auto 1rem;
-        }
-
-        .agent.ralph .agent-icon { background: linear-gradient(135deg, var(--purple), var(--accent)); }
-        .agent.claude .agent-icon { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
-        .agent.human .agent-icon { background: linear-gradient(135deg, var(--green), var(--cyan)); }
-
-        .agent h3 { margin-bottom: 0.25rem; }
-        .agent p { color: var(--text-dim); font-size: 0.9rem; }
-
-        .collab-arrow {
-            font-size: 2rem;
-            color: var(--accent);
-        }
-
-        /* Success/Failure */
-        .outcomes {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 700px) {
-            .outcomes { grid-template-columns: 1fr; }
-        }
-
-        .outcome {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .outcome.success { border: 2px solid var(--green); }
-        .outcome.failure { border: 2px solid var(--red); }
-
-        .outcome h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .outcome.success h3 { color: var(--green); }
-        .outcome.failure h3 { color: var(--red); }
-
-        .outcome ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .outcome li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .outcome li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--text-dim);
-        }
-
-        /* Files */
-        .file-tree {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
-
-        .file-tree .folder { color: var(--accent); }
-        .file-tree .file { color: var(--text); margin-left: 1.5rem; }
-        .file-tree .comment { color: var(--text-dim); margin-left: 0.5rem; }
-
-        /* Animation */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            color: var(--text-dim);
-            padding-top: 2rem;
-            border-top: 1px solid var(--bg-lighter);
-            margin-top: 4rem;
-        }
+        .icon { width: 20px; height: 20px; }
+        .icon-sm { width: 16px; height: 16px; }
     </style>
 </head>
-<body>
-    <h1>Ralph v4</h1>
-    <p class="subtitle">Autonomous Development System with Learning Loop</p>
+<body class="text-neutral-300 font-sans antialiased">
 
-    <!-- Overview -->
-    <section>
-        <h2>What is Ralph?</h2>
-        <div class="overview">
-            <div class="card">
-                <h3><span class="icon">🤖</span> Autonomous Agent</h3>
-                <p>Ralph reads stories from prd.json and implements them one by one, creating branches, writing code, running tests, and merging PRs—all without human intervention.</p>
+    <!-- Hero -->
+    <header class="relative h-[80vh] min-h-[600px] flex items-center justify-center px-6 overflow-hidden">
+        <!-- Gradient glow -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[800px] opacity-30">
+                <div class="absolute inset-0 bg-gradient-to-b from-blue-600/40 via-violet-600/20 to-transparent blur-3xl"></div>
             </div>
-            <div class="card">
-                <h3><span class="icon">🧠</span> Learning System</h3>
-                <p>Every iteration—success or failure—writes learnings back to docs/learnings/. The next iteration reads those learnings first. Ralph gets smarter with every loop.</p>
-            </div>
-            <div class="card">
-                <h3><span class="icon">🔄</span> Self-Improving</h3>
-                <p>Patterns, gotchas, and best practices accumulate over time. What Ralph learns in iteration 1 helps it avoid mistakes in iteration 50.</p>
-            </div>
+            <div class="absolute top-32 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute top-32 right-1/4 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-3xl"></div>
         </div>
-    </section>
+        <!-- Fade to black -->
+        <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0c0c0c] to-transparent"></div>
 
-    <!-- Collaboration -->
-    <section>
-        <h2>How We Work Together</h2>
-        <div class="collab-container">
-            <div class="agent human">
-                <div class="agent-icon">👤</div>
-                <h3>You</h3>
-                <p>Define stories in prd.json<br>Review PRs<br>Direct Claude for specific tasks</p>
+        <div class="relative max-w-3xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900/80 border border-neutral-700 text-xs text-neutral-400 mb-8 backdrop-blur-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                v4.0
             </div>
-            <div class="collab-arrow">⟷</div>
-            <div class="agent claude">
-                <div class="agent-icon">🧡</div>
-                <h3>Claude</h3>
-                <p>Interactive assistant<br>Handles direct requests<br>Updates learnings/</p>
-            </div>
-            <div class="collab-arrow">⟷</div>
-            <div class="agent ralph">
-                <div class="agent-icon">🔮</div>
-                <h3>Ralph</h3>
-                <p>Autonomous execution<br>Works through prd.json<br>Updates learnings/</p>
-            </div>
-        </div>
-        <div class="card" style="margin-top: 2rem; text-align: center;">
-            <p><strong>Shared Knowledge:</strong> Both Claude and Ralph read from and write to <code>docs/learnings/</code><br>
-            Everything we learn together accumulates in one place.</p>
-        </div>
-    </section>
-
-    <!-- Iteration Flow -->
-    <section>
-        <h2>Ralph Iteration Flow</h2>
-        <div class="flow-container">
-            <div class="flow">
-                <div class="flow-step step-1">
-                    <div class="step-icon">📖</div>
-                    <div class="step-title">Load Context</div>
-                    <div class="step-desc">Read learnings/, activity logs, prd.json, progress.txt</div>
-                </div>
-                <div class="flow-step step-2">
-                    <div class="step-icon">🎯</div>
-                    <div class="step-title">Pick Story</div>
-                    <div class="step-desc">Find next story where passes ≠ true, create branch</div>
-                </div>
-                <div class="flow-step step-3">
-                    <div class="step-icon">⚡</div>
-                    <div class="step-title">Implement</div>
-                    <div class="step-desc">Write code, tests, run build, self-review, refactor</div>
-                </div>
-                <div class="flow-step step-4">
-                    <div class="step-icon">✍️</div>
-                    <div class="step-title">Write Learnings</div>
-                    <div class="step-desc">Update learnings/ (success OR failure), activity log</div>
-                </div>
-                <div class="flow-step step-5">
-                    <div class="step-icon">🔁</div>
-                    <div class="step-title">Next</div>
-                    <div class="step-desc">Merge PR (if success), loop to next story</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Learning Loop -->
-    <section>
-        <h2>The Learning Loop</h2>
-        <div class="loop-container">
-            <div class="loop-diagram">
-                <div class="loop-center">Knowledge<br>Grows</div>
-
-                <div class="loop-node read">📖 Read<br>learnings/</div>
-                <div class="loop-node work">⚡ Do Work<br>Learn stuff</div>
-                <div class="loop-node write">✍️ Update<br>learnings/</div>
-                <div class="loop-node next">🔄 Next<br>iteration</div>
-
-                <div class="loop-arrow arrow-1">↘</div>
-                <div class="loop-arrow arrow-2">↙</div>
-                <div class="loop-arrow arrow-3">↖</div>
-                <div class="loop-arrow arrow-4">↗</div>
-            </div>
-        </div>
-        <div class="card" style="max-width: 700px; margin: 0 auto;">
-            <h3 style="text-align: center; margin-bottom: 1rem;">Self-Correcting Knowledge</h3>
-            <div style="display: flex; justify-content: space-around; text-align: center;">
-                <div>
-                    <div style="font-size: 1.5rem;">➕</div>
-                    <strong>Add</strong><br>
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">New patterns</span>
-                </div>
-                <div>
-                    <div style="font-size: 1.5rem;">✏️</div>
-                    <strong>Correct</strong><br>
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">Fix mistakes</span>
-                </div>
-                <div>
-                    <div style="font-size: 1.5rem;">🗑️</div>
-                    <strong>Remove</strong><br>
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">Outdated info</span>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 1rem; color: var(--text-dim); font-size: 0.9rem;">
-                Corrections are logged in activity logs so we know what changed and why.
+            <h1 class="text-6xl md:text-7xl font-semibold text-white mb-6 tracking-tight">
+                Ralph
+            </h1>
+            <p class="text-xl text-neutral-400 max-w-lg mx-auto leading-relaxed">
+                Autonomous development system with self-correcting learning
             </p>
         </div>
-    </section>
+    </header>
 
-    <!-- Knowledge Architecture -->
-    <section>
-        <h2>Knowledge Architecture</h2>
-        <div class="knowledge-grid">
-            <div class="knowledge-box primary">
-                <h3>📗 Distilled Wisdom</h3>
-                <div class="path">docs/learnings/</div>
-                <ul>
-                    <li>Organized by topic files</li>
-                    <li>Each file has Gotchas section</li>
-                    <li>Read FIRST every iteration</li>
-                    <li>Add, Correct, Remove as needed</li>
-                    <li>Self-correcting over time</li>
-                </ul>
-            </div>
-            <div class="knowledge-box context">
-                <h3>📘 Detailed Context</h3>
-                <div class="path">docs/activity/YYYY-MM-DD.md</div>
-                <ul>
-                    <li>Session-by-session narrative</li>
-                    <li>Files modified, decisions made</li>
-                    <li>Learnings corrections logged here</li>
-                    <li>Last 2 logs included in prompt</li>
-                    <li>Detailed blocker information</li>
-                </ul>
-            </div>
-            <div class="knowledge-box history">
-                <h3>📙 Story History</h3>
-                <div class="path">scripts/ralph/progress.txt</div>
-                <ul>
-                    <li>Per-story entries</li>
-                    <li>What was done & learned</li>
-                    <li>Codebase patterns at top</li>
-                    <li>Architecture decisions</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <main class="max-w-4xl mx-auto px-6 pb-24">
 
-    <!-- Success vs Failure -->
-    <section>
-        <h2>Learning from Everything</h2>
-        <div class="outcomes">
-            <div class="outcome success">
-                <h3>✅ On Success</h3>
-                <ul>
-                    <li>Add patterns to learnings/</li>
-                    <li>Document in activity log</li>
-                    <li>Update progress.txt</li>
-                    <li>Set prd.json passes: true</li>
-                    <li>Commit → Push → PR → Merge</li>
-                </ul>
+        <!-- Three Pillars -->
+        <section class="mb-24">
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="gradient-border rounded-xl p-6">
+                    <div class="text-blue-400 mb-4">
+                        <i data-lucide="bot" class="icon"></i>
+                    </div>
+                    <h3 class="text-white font-medium mb-2">Autonomous</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Implements stories end-to-end. Creates branches, writes code, runs tests, merges PRs.</p>
+                </div>
+                <div class="gradient-border rounded-xl p-6">
+                    <div class="text-emerald-400 mb-4">
+                        <i data-lucide="brain" class="icon"></i>
+                    </div>
+                    <h3 class="text-white font-medium mb-2">Learning</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Every iteration writes learnings back. Captures patterns from successes and failures.</p>
+                </div>
+                <div class="gradient-border rounded-xl p-6">
+                    <div class="text-violet-400 mb-4">
+                        <i data-lucide="refresh-cw" class="icon"></i>
+                    </div>
+                    <h3 class="text-white font-medium mb-2">Self-Correcting</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed">Misconceptions get fixed, not accumulated. Knowledge improves over time.</p>
+                </div>
             </div>
-            <div class="outcome failure">
-                <h3>❌ On Blocked</h3>
-                <ul>
-                    <li>Add gotchas to learnings/</li>
-                    <li>Document what went wrong</li>
-                    <li>Update progress.txt (tried/blocked)</li>
-                    <li>DON'T update prd.json</li>
-                    <li>Retry or move to next story</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- File Structure -->
-    <section>
-        <h2>Ralph File Structure</h2>
-        <div class="file-tree">
-            <div class="folder">scripts/ralph/</div>
-            <div class="file">ralph.elv <span class="comment"># Main script - runs the loop</span></div>
-            <div class="file">prompt.md <span class="comment"># Template sent to Claude</span></div>
-            <div class="file">prd.json <span class="comment"># Stories & acceptance criteria</span></div>
-            <div class="file">progress.txt <span class="comment"># Story history & patterns</span></div>
-            <div class="file">state.json <span class="comment"># Current state (story, branch, attempts)</span></div>
-            <br>
-            <div class="folder">docs/</div>
-            <div class="file">learnings/ <span class="comment"># Consolidated wisdom (READ FIRST)</span></div>
-            <div class="file" style="margin-left: 3rem;">elvish.md <span class="comment"># Language patterns</span></div>
-            <div class="file" style="margin-left: 3rem;">lsp.md <span class="comment"># LSP integration</span></div>
-            <div class="file" style="margin-left: 3rem;">editor.md <span class="comment"># Editor features</span></div>
-            <div class="file" style="margin-left: 3rem;">... <span class="comment"># + more topic files</span></div>
-            <div class="file">activity/ <span class="comment"># Daily session logs</span></div>
-            <div class="file" style="margin-left: 3rem;">2026-01-21.md</div>
-            <div class="file" style="margin-left: 3rem;">2026-01-20.md</div>
-        </div>
-    </section>
+        <!-- The Team -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-2">How We Work Together</h2>
+            <p class="text-sm text-neutral-500 text-center mb-8">Three agents sharing a common knowledge base</p>
 
-    <!-- Categories in learnings/ -->
-    <section>
-        <h2>What's in learnings/?</h2>
-        <div class="overview">
-            <div class="card">
-                <h3>🐚 elvish.md</h3>
-                <p>Elvish syntax, features, operators + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>🔌 intellij-plugin.md</h3>
-                <p>Core plugin patterns, settings, icons + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>🔗 lsp.md</h3>
-                <p>LSP integration, protocol, testing + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>✏️ editor.md</h3>
-                <p>Folding, structure, breadcrumbs + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>▶️ run-configs.md</h3>
-                <p>Run configs, execution, gutter icons + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>📝 templates.md</h3>
-                <p>File & live templates + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>🧪 testing.md</h3>
-                <p>Test patterns, LSP testing + gotchas</p>
-            </div>
-            <div class="card">
-                <h3>🔧 build.md</h3>
-                <p>Gradle, environment, macOS + gotchas</p>
-            </div>
-        </div>
-        <div class="card" style="margin-top: 1rem; text-align: center;">
-            <p>Each file has its own <strong>Gotchas</strong> section at the bottom for topic-specific mistakes to avoid.</p>
-        </div>
-    </section>
+            <div class="gradient-border rounded-xl p-8">
+                <div class="flex items-center justify-center gap-8 md:gap-16 mb-8">
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center text-white mb-3 mx-auto">
+                            <i data-lucide="user" class="icon-sm"></i>
+                        </div>
+                        <div class="text-sm text-white font-medium">You</div>
+                        <div class="text-xs text-neutral-600 mt-1">Define stories</div>
+                    </div>
+                    <div class="text-neutral-700">
+                        <i data-lucide="minus" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white mb-3 mx-auto">
+                            <i data-lucide="message-circle" class="icon-sm"></i>
+                        </div>
+                        <div class="text-sm text-white font-medium">Claude</div>
+                        <div class="text-xs text-neutral-600 mt-1">Interactive help</div>
+                    </div>
+                    <div class="text-neutral-700">
+                        <i data-lucide="minus" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white mb-3 mx-auto">
+                            <i data-lucide="cpu" class="icon-sm"></i>
+                        </div>
+                        <div class="text-sm text-white font-medium">Ralph</div>
+                        <div class="text-xs text-neutral-600 mt-1">Autonomous</div>
+                    </div>
+                </div>
 
-    <!-- Summary -->
-    <section>
-        <h2>TL;DR</h2>
-        <div class="card" style="font-size: 1.1rem; line-height: 1.8;">
-            <p>
-                <strong>Ralph</strong> autonomously works through stories in prd.json.<br>
-                <strong>Claude</strong> handles direct requests interactively.<br>
-                <strong>Both</strong> read from and write to <code>docs/learnings/</code>.<br>
-                <strong>Every iteration</strong> (success or failure) adds knowledge.<br>
-                <strong>Result:</strong> A system that gets smarter over time. 🚀
-            </p>
-        </div>
-    </section>
+                <div class="text-center pt-6 border-t border-neutral-800">
+                    <span class="text-xs text-neutral-600">All share </span>
+                    <code class="text-xs text-blue-400 bg-blue-500/10 px-2 py-1 rounded">docs/learnings/</code>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <p>Ralph v4 • JetBrains Elvish Plugin • Built with 🧡 by Claude & You</p>
+        <!-- Iteration Flow -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-2">Iteration Flow</h2>
+            <p class="text-sm text-neutral-500 text-center mb-8">Five steps, repeated until complete</p>
+
+            <div class="gradient-border rounded-xl p-8">
+                <div class="flex items-center justify-center gap-3 flex-wrap">
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <i data-lucide="book-open" class="icon-sm text-violet-400"></i>
+                        <span class="text-sm">Load</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="icon-sm text-neutral-700"></i>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <i data-lucide="target" class="icon-sm text-cyan-400"></i>
+                        <span class="text-sm">Pick</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="icon-sm text-neutral-700"></i>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <i data-lucide="zap" class="icon-sm text-amber-400"></i>
+                        <span class="text-sm">Build</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="icon-sm text-neutral-700"></i>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <i data-lucide="pencil" class="icon-sm text-emerald-400"></i>
+                        <span class="text-sm">Write</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="icon-sm text-neutral-700"></i>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        <i data-lucide="git-merge" class="icon-sm text-blue-400"></i>
+                        <span class="text-sm">Merge</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Loop -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-2">The Learning Loop</h2>
+            <p class="text-sm text-neutral-500 text-center mb-12">Knowledge grows with every iteration</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Visual Loop -->
+                <div class="gradient-border rounded-xl p-8">
+                    <div class="relative w-48 h-48 mx-auto">
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="70" fill="none" stroke="#262626" stroke-width="1" />
+                            <path d="M 100 30 A 70 70 0 0 1 170 100" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" />
+                            <path d="M 170 100 A 70 70 0 0 1 100 170" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" />
+                            <path d="M 100 170 A 70 70 0 0 1 30 100" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" />
+                            <path d="M 30 100 A 70 70 0 0 1 100 30" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" />
+                            <defs>
+                                <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                    <path d="M 0 0 L 6 3 L 0 6 z" fill="#3b82f6" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-cyan-400 bg-neutral-900 px-2 py-1 rounded border border-neutral-800">Read</div>
+                        <div class="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 text-xs text-amber-400 bg-neutral-900 px-2 py-1 rounded border border-neutral-800">Work</div>
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-xs text-emerald-400 bg-neutral-900 px-2 py-1 rounded border border-neutral-800">Write</div>
+                        <div class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 text-xs text-violet-400 bg-neutral-900 px-2 py-1 rounded border border-neutral-800">Next</div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                            <div class="text-xs text-neutral-500">Knowledge</div>
+                            <div class="text-xs text-white">Grows</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="gradient-border rounded-xl p-8">
+                    <h3 class="text-sm font-medium text-white mb-6">Self-Correcting</h3>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="plus" class="icon-sm text-emerald-400"></i>
+                            <div>
+                                <div class="text-sm text-white">Add</div>
+                                <div class="text-xs text-neutral-500">New patterns discovered</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="pencil" class="icon-sm text-amber-400"></i>
+                            <div>
+                                <div class="text-sm text-white">Correct</div>
+                                <div class="text-xs text-neutral-500">Fix misconceptions</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="trash-2" class="icon-sm text-red-400"></i>
+                            <div>
+                                <div class="text-sm text-white">Remove</div>
+                                <div class="text-xs text-neutral-500">Outdated information</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Architecture -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-2">Knowledge Architecture</h2>
+            <p class="text-sm text-neutral-500 text-center mb-12">Three layers of documentation</p>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="gradient-border rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="library" class="icon-sm text-emerald-400"></i>
+                        <span class="text-sm text-white font-medium">Learnings</span>
+                    </div>
+                    <code class="text-xs text-neutral-600 block mb-3">docs/learnings/</code>
+                    <ul class="space-y-1.5 text-xs text-neutral-500">
+                        <li>Topic-based files</li>
+                        <li>Gotchas in each file</li>
+                        <li>Read first every time</li>
+                    </ul>
+                </div>
+                <div class="gradient-border rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="calendar" class="icon-sm text-cyan-400"></i>
+                        <span class="text-sm text-white font-medium">Activity Logs</span>
+                    </div>
+                    <code class="text-xs text-neutral-600 block mb-3">docs/activity/</code>
+                    <ul class="space-y-1.5 text-xs text-neutral-500">
+                        <li>Daily session notes</li>
+                        <li>Decisions made</li>
+                        <li>Last 2 in prompt</li>
+                    </ul>
+                </div>
+                <div class="gradient-border rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="trending-up" class="icon-sm text-violet-400"></i>
+                        <span class="text-sm text-white font-medium">Progress</span>
+                    </div>
+                    <code class="text-xs text-neutral-600 block mb-3">scripts/ralph/progress.txt</code>
+                    <ul class="space-y-1.5 text-xs text-neutral-500">
+                        <li>Story history</li>
+                        <li>Per-story learnings</li>
+                        <li>Architecture notes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outcomes -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-12">Learning from Everything</h2>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="rounded-xl p-6 bg-emerald-500/5 border border-emerald-500/20">
+                    <div class="flex items-center gap-2 text-emerald-400 mb-4">
+                        <i data-lucide="check-circle" class="icon-sm"></i>
+                        <span class="text-sm font-medium">On Success</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-neutral-400">
+                        <li>Add patterns to learnings</li>
+                        <li>Update activity log</li>
+                        <li>Set passes: true</li>
+                        <li>Create PR and merge</li>
+                    </ul>
+                </div>
+                <div class="rounded-xl p-6 bg-red-500/5 border border-red-500/20">
+                    <div class="flex items-center gap-2 text-red-400 mb-4">
+                        <i data-lucide="x-circle" class="icon-sm"></i>
+                        <span class="text-sm font-medium">On Blocked</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-neutral-400">
+                        <li>Add gotchas to learnings</li>
+                        <li>Document what failed</li>
+                        <li>DON'T update prd.json</li>
+                        <li>Retry or skip</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- File Tree -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-12">File Structure</h2>
+
+            <div class="max-w-md mx-auto gradient-border rounded-xl p-6 font-mono text-sm">
+                <div class="text-blue-400 flex items-center gap-2">
+                    <i data-lucide="folder" class="icon-sm"></i> scripts/ralph/
+                </div>
+                <div class="ml-6 text-neutral-500 space-y-1 mt-1">
+                    <div>ralph.elv</div>
+                    <div>prompt.md</div>
+                    <div>prd.json</div>
+                    <div>state.json</div>
+                </div>
+                <div class="text-blue-400 flex items-center gap-2 mt-4">
+                    <i data-lucide="folder" class="icon-sm"></i> docs/
+                </div>
+                <div class="ml-6 text-neutral-500 space-y-1 mt-1">
+                    <div>learnings/</div>
+                    <div>activity/</div>
+                    <div>ralph/</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learnings Grid -->
+        <section class="mb-24">
+            <h2 class="text-xl font-medium text-white text-center mb-2">Learnings by Topic</h2>
+            <p class="text-sm text-neutral-500 text-center mb-12">Each file has patterns + gotchas</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="terminal" class="icon-sm text-blue-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">elvish.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="plug" class="icon-sm text-violet-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">intellij-plugin.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="link" class="icon-sm text-cyan-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">lsp.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="edit-3" class="icon-sm text-amber-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">editor.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="play" class="icon-sm text-emerald-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">run-configs.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="file-text" class="icon-sm text-pink-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">templates.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="flask-conical" class="icon-sm text-orange-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">testing.md</div>
+                </div>
+                <div class="gradient-border rounded-lg p-4 text-center hover:border-neutral-700 transition-colors">
+                    <i data-lucide="wrench" class="icon-sm text-neutral-400 mx-auto mb-2"></i>
+                    <div class="text-xs text-neutral-400">build.md</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section>
+            <div class="gradient-border rounded-xl p-8 text-center">
+                <p class="text-neutral-400 leading-relaxed">
+                    <span class="text-blue-400">Ralph</span> works through stories autonomously.
+                    <span class="text-orange-400">Claude</span> handles direct requests.
+                    <span class="text-emerald-400">Both</span> share learnings.
+                    <span class="text-violet-400">Every iteration</span> makes the system smarter.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-neutral-900 py-6 text-center text-neutral-600 text-xs">
+        Ralph v4 · JetBrains Elvish Plugin
     </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
 </body>
 </html>

@@ -226,9 +226,10 @@ re:replace 'pattern' replacement $string
 
 ### Checking Command Existence
 ```elvish
-try {
-  command -v some-cmd > /dev/null 2>&1
-} catch {
+# Preferred - use has-external builtin
+if (has-external some-cmd) {
+  some-cmd args
+} else {
   echo "Command not found"
 }
 ```
@@ -247,8 +248,11 @@ put $map | to-json > file.json
 
 ### Working with External Commands
 ```elvish
-# Suppress output
+# Suppress output (shell-style)
 git status > /dev/null 2>&1
+
+# Suppress output (idiomatic Elvish)
+git status 2>&1 | nop
 
 # Get exit status
 try {
@@ -266,6 +270,23 @@ for item $list {
   echo $i": "$item
   set i = (+ $i 1)
 }
+```
+
+## Command Line Options
+
+```elvish
+# Check syntax without executing (useful for CI/validation)
+elvish -compileonly script.elv
+
+# Run code directly
+elvish -c 'echo hello'
+
+# Show version/build info
+elvish -version
+elvish -buildinfo
+
+# Run as LSP server (for IDE integration)
+elvish -lsp
 ```
 
 ## Gotchas and Tips

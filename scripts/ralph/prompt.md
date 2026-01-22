@@ -12,6 +12,13 @@ If attempt > 1: check `git log` and `git diff` for previous work.
 
 **Activity Log:** Create or update `docs/activity/YYYY-MM-DD.md` (today's date). Add entry for starting work on {{CURRENT_STORY}}.
 
+### Recent Activity Logs (Learn from these)
+Review the following recent activity logs for patterns, decisions, and learnings that may apply to {{CURRENT_STORY}}:
+
+{{RECENT_ACTIVITY_LOGS}}
+
+**Important:** After completing {{CURRENT_STORY}}, add any new learnings from this work to `progress.txt` under the appropriate section (Codebase Patterns, Architecture Decisions, or a new story entry). This helps future iterations avoid repeating mistakes and build on established patterns.
+
 ## 2. Scope
 Implement ONLY {{CURRENT_STORY}}. No refactoring unrelated code. Note other issues in Learnings only.
 

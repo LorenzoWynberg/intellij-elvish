@@ -21,12 +21,24 @@ Instructions for Claude Code when working in this repository.
 
 Example: `docs/activity/2026-01-20.md`
 
+## Learnings (Read & Write)
+
+**Always check relevant learnings before starting work, and add new learnings when you discover something.**
+
+- Location: `docs/learnings/`
+- Files organized by topic: `elvish.md`, `lsp.md`, `editor.md`, etc.
+- Each file has a **Gotchas** section for common mistakes
+- Add new learnings to the appropriate file after completing work
+
+This creates a feedback loop where knowledge accumulates across sessions.
+
 ## Documentation
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, architecture, debugging
 - [Contributing Guide](docs/CONTRIBUTING.md) - Branching, commits, PRs
 - [Ralph Guide](docs/RALPH.md) - Autonomous development loop
 - [Changelog](docs/CHANGELOG.md) - Version history
+- [Learnings](docs/learnings/) - Consolidated patterns and gotchas
 
 ## Project Overview
 

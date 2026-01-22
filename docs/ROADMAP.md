@@ -51,6 +51,13 @@ Future plans for the Elvish JetBrains plugin.
 | Env Var Hover | Show `$E:VAR` values on hover |
 | Wildcard Preview | Show what `*`, `**`, `?` would match |
 | Output Capture Hints | Explain `(cmd)` vs `?(cmd)` difference |
+| Carapace Integration | Leverage [carapace-bin](https://github.com/rsteube/carapace-bin) for 400+ command completions |
+| zoxide Integration | Quick directory navigation via [zoxide](https://github.com/ajeetdsouza/zoxide) |
+| Test Runner | Run [elvish-tap](https://github.com/tesujimath/elvish-tap) tests from IDE |
+
+## Ecosystem
+
+See [ECOSYSTEM.md](ECOSYSTEM.md) for companion tools (completions, prompts, modules).
 
 ## Contributing
 

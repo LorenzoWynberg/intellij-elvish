@@ -106,5 +106,6 @@ JetBrains plugin for Elvish shell language support. Uses Elvish's built-in LSP (
 
 - One commit per logical change
 - Push after each commit
+- **No "Co-Authored-By" lines**
 - Format: `type: Description`
 - Types: `feat`, `fix`, `refactor`, `docs`, `chore`

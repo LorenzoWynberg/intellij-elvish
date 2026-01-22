@@ -105,8 +105,9 @@ JetBrains plugin for Elvish shell language support. Uses Elvish's built-in LSP (
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, architecture, debugging
 - [Contributing Guide](docs/CONTRIBUTING.md) - Branching, commits, PRs
-- [Ralph Guide](docs/ralph/RALPH.md) - Autonomous development loop
+- [Roadmap](docs/ROADMAP.md) - Future plans
 - [Changelog](docs/CHANGELOG.md) - Version history
+- [Ralph Guide](docs/ralph/RALPH.md) - Autonomous development loop
 - [Learnings](docs/learnings/) - Topic-based patterns
 
 ## Branching

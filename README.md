@@ -98,6 +98,7 @@ The plugin will be available on the JetBrains Marketplace.
 
 - [Development Guide](docs/DEVELOPMENT.md) - Build, test, architecture
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to contribute
+- [Roadmap](docs/ROADMAP.md) - Future plans
 - [Ralph Guide](docs/ralph/RALPH.md) - Autonomous development loop
 
 ## Resources

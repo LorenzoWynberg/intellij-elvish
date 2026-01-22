@@ -1,5 +1,7 @@
 # Run Configurations
 
+> **TL;DR:** `RunConfigurationBase`, `SimpleConfigurationType`, `CommandLineState` for execution, gutter icons via `RunLineMarkerContributor`, producers for context menu.
+
 Learnings about run configurations and script execution.
 
 ## Configuration Type

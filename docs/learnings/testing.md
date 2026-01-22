@@ -1,5 +1,7 @@
 # Testing
 
+> **TL;DR:** LSP tests need `textDocument/didOpen` first, use `ProcessBuilder` for `elvish -lsp`, tests in `src/test/kotlin/` mirroring main structure.
+
 Learnings about testing patterns and utilities.
 
 ## LSP Testing

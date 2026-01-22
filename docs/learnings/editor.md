@@ -1,5 +1,7 @@
 # Editor Features
 
+> **TL;DR:** Commenter, brace matching, code folding (`FoldingBuilderEx`), structure view, breadcrumbs, TODO highlighting (`IndexPatternBuilder`), spell checking.
+
 Learnings about editor enhancements (folding, structure view, breadcrumbs, etc.).
 
 ## Commenter

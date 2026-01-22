@@ -1,5 +1,7 @@
 # LSP Integration
 
+> **TL;DR:** Use `com.intellij.modules.lsp` (not ultimate), `elvish -lsp` for server, stdio communication, diagnostics are pushed via notifications.
+
 Learnings about Language Server Protocol integration.
 
 ## Module Dependencies

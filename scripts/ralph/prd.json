@@ -960,35 +960,6 @@
       "phase": 9,
       "epic": 6,
       "story_number": 4
-    },
-    {
-      "id": "STORY-TEST-1",
-      "title": "Add test comment to README",
-      "intent": "Add a simple test comment to verify Ralph streaming works",
-      "acceptance": [
-        "Add HTML comment <!-- RALPH_STREAMING_TEST --> as the very last line of README.md",
-        "./gradlew build succeeds"
-      ],
-      "passes": true,
-      "depends_on": [],
-      "phase": 99,
-      "epic": 99,
-      "story_number": 1
-    },
-    {
-      "id": "STORY-TEST-2",
-      "title": "Remove test comment from README",
-      "intent": "Remove the test comment to restore README to original state",
-      "acceptance": [
-        "Remove the line <!-- RALPH_STREAMING_TEST --> from README.md",
-        "README.md is back to its original state (no test comment)",
-        "./gradlew build succeeds"
-      ],
-      "passes": true,
-      "depends_on": ["STORY-TEST-1"],
-      "phase": 99,
-      "epic": 99,
-      "story_number": 2
     }
   ]
 }

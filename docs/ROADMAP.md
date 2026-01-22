@@ -9,6 +9,7 @@ Core functionality complete:
 - File type recognition for `.elv` files with custom icon
 - Syntax highlighting via TextMate grammar
 - LSP integration (completion, diagnostics, hover, go-to-definition)
+- Syntax error highlighting via `elvish -compileonly`
 - Run configurations with gutter icons
 - 15 live templates + 2 file templates
 - Editor features (folding, structure view, breadcrumbs)
@@ -18,62 +19,56 @@ Core functionality complete:
 
 ## Immediate Next Steps
 
-- [ ] Submit PR to [awesome-elvish](https://github.com/elves/awesome-elvish):
-  - Replace abandoned PyCharm plugin with our JetBrains plugin
-  - Add "JetBrains IDEs" to editor support section
 - [ ] Submit to JetBrains Marketplace
 - [ ] Create GitHub releases with changelog
+- [ ] Submit PR to [awesome-elvish](https://github.com/elves/awesome-elvish)
 
 ---
 
-## v1.1.0 - Quick Wins
+## v1.1.0 - Editor Polish
 
 Low-effort, high-value improvements:
 
-| Feature | Description | Priority |
-|---------|-------------|----------|
-| More Live Templates | `nop`, `range`, `all`, `one`, `slurp` | High |
-| Surround With | Wrap selection in `{ }`, `try { }`, `?(...)` | High |
+| Feature | Description | Effort |
+|---------|-------------|--------|
+| More Live Templates | `nop`, `range`, `all`, `one`, `slurp` | Low |
+| Surround With | Wrap selection in `{ }`, `try { }`, `?(...)` | Low |
 | Smart Enter | Auto-continue pipelines with `\|` | Medium |
 | Quote Handling | Smart quote insertion and navigation | Medium |
 
-## v1.2.0 - Elvish Ecosystem
+## v1.2.0 - Elvish Navigation
 
-Features that make Elvish development easier:
+Features to navigate Elvish projects:
 
-| Feature | Description | Priority |
-|---------|-------------|----------|
-| Module Browser | Browse built-in modules (`str:`, `path:`, `math:`, `re:`, `file:`, `os:`) with docs | High |
-| rc.elv Support | Quick navigation to `~/.config/elvish/rc.elv` | High |
-| lib/*.elv Support | Navigate to user modules in `~/.config/elvish/lib/` | High |
-| epm Browser | View installed packages, install new ones | Medium |
+| Feature | Description | Effort |
+|---------|-------------|--------|
+| Module Browser | Browse built-in modules (`str:`, `path:`, `math:`) with docs | Medium |
+| rc.elv Quick Access | Action to open `~/.config/elvish/rc.elv` | Low |
+| lib/*.elv Navigation | Navigate to user modules in `~/.config/elvish/lib/` | Medium |
 | Module Completion | Enhanced completion for module functions | Medium |
 
-## v1.3.0 - Developer Experience
+## v1.3.0 - Run Enhancements
 
-| Feature | Description | Priority |
-|---------|-------------|----------|
-| Carapace Docs | Document [carapace-bin](https://github.com/rsteube/carapace-bin) integration for 400+ command completions | High |
-| Run with Args | Prompt for script arguments before running | Medium |
+| Feature | Description | Effort |
+|---------|-------------|--------|
+| Run with Arguments | Prompt for script arguments before running | Low |
 | Environment Profiles | Save/load environment variable sets | Medium |
-| Script Debugging | Basic print-based debugging support | Low |
+| Output Filtering | Filter/search run output | Low |
 
-## v2.0.0 - Advanced Features
+## v2.0.0 - Developer Tools
 
-| Feature | Description | Priority |
-|---------|-------------|----------|
+| Feature | Description | Effort |
+|---------|-------------|--------|
 | REPL Integration | Interactive Elvish shell in IDE tool window | High |
-| Test Runner | Run [elvish-tap](https://github.com/tesujimath/elvish-tap) tests with results UI | Medium |
-| zoxide Integration | Quick directory navigation via [zoxide](https://github.com/ajeetdsouza/zoxide) | Medium |
-| Snippet Manager | Create/share custom live templates | Low |
+| Test Runner | Run tests with results UI (supports [elvish-tap](https://github.com/tesujimath/elvish-tap) and [velvet](https://github.com/giancosta86/velvet)) | High |
+| Snippet Manager | Create/share custom live templates | Medium |
 
-## v2.1.0 - Power User Features
+## v2.1.0 - Advanced Features
 
-| Feature | Description | Priority |
-|---------|-------------|----------|
-| Multi-file Refactoring | Rename across project (if LSP supports) | Medium |
-| Call Hierarchy | Show function callers/callees | Medium |
-| Type Hints | Show inferred types inline | Low |
+| Feature | Description | Effort |
+|---------|-------------|--------|
+| Multi-file Refactoring | Rename across project (requires LSP support) | High |
+| Call Hierarchy | Show function callers/callees | High |
 
 ---
 
@@ -81,37 +76,30 @@ Features that make Elvish development easier:
 
 These features require upstream changes to `elvish -lsp`:
 
-| Feature | Required LSP Method | Tracking |
-|---------|---------------------|----------|
-| Find Usages | `textDocument/references` | Not implemented |
-| Rename Symbol | `textDocument/rename` | Not implemented |
-| Signature Help | `textDocument/signatureHelp` | Not implemented |
-| Semantic Tokens | `textDocument/semanticTokens` | Not implemented |
-| Inlay Hints | `textDocument/inlayHint` | Not implemented |
+| Feature | Required LSP Method |
+|---------|---------------------|
+| Find Usages | `textDocument/references` |
+| Rename Symbol | `textDocument/rename` |
+| Signature Help | `textDocument/signatureHelp` |
+| Semantic Tokens | `textDocument/semanticTokens` |
+| Inlay Hints | `textDocument/inlayHint` |
 
 > Contributions to [elves/elvish](https://github.com/elves/elvish) could enable these features.
 
 ---
 
-## Future Ideas
+## Out of Scope
 
-Exploring for later versions:
+These are **shell/terminal features**, not IDE features. They're documented in [ECOSYSTEM.md](ECOSYSTEM.md) for users who want them:
 
-| Feature | Description |
-|---------|-------------|
-| Tilde Expansion Preview | Show what `~/` and `~user/` resolve to |
-| Path Completion | Autocomplete file paths in strings |
-| Env Var Hover | Show `$E:VAR` values on hover |
-| Wildcard Preview | Show what `*`, `**`, `?` would match |
-| Output Capture Hints | Explain `(cmd)` vs `?(cmd)` difference |
-| Nix Integration | Support for [elvish.nix](https://github.com/tesujimath/elvish.nix) |
-| direnv/direlv | Directory-specific environments |
+- **Prompt themes** (Starship, oh-my-posh) - Terminal customization
+- **Shell completions** (carapace-bin) - Terminal tab completion, not IDE
+- **Directory tools** (zoxide, direlv) - Terminal navigation
+- **Environment managers** (virtualenv, nvm, conda) - Terminal environments
+
+The plugin focuses on **editing, running, and testing** Elvish code within the IDE.
 
 ---
-
-## Ecosystem
-
-See [ECOSYSTEM.md](ECOSYSTEM.md) for companion tools users can install alongside the plugin.
 
 ## Contributing
 

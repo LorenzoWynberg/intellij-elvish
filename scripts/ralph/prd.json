@@ -6,7 +6,7 @@
       "intent": "Establish the foundational directory structure for a JetBrains plugin project with proper Gradle configuration",
       "acceptance": [
         "Project has standard Gradle directory layout (src/main/kotlin, src/main/resources)",
-        "settings.gradle.kts defines project name as 'intellij-elvish'",
+        "settings.gradle.kts defines project name as 'jetbrains-elvish'",
         "gradle.properties contains plugin metadata (group, version, platform settings)",
         "Gradle wrapper configured and working"
       ],

@@ -94,8 +94,8 @@ Comprehensive support for the [Elvish shell](https://elv.sh) in JetBrains IDEs.
 
 ## Links
 - [Elvish Shell](https://elv.sh)
-- [GitHub Repository](https://github.com/LorenzoWynberg/intellij-elvish)
-- [Report Issues](https://github.com/LorenzoWynberg/intellij-elvish/issues)
+- [GitHub Repository](https://github.com/LorenzoWynberg/jetbrains-elvish)
+- [Report Issues](https://github.com/LorenzoWynberg/jetbrains-elvish/issues)
 ```
 
 ### Tags

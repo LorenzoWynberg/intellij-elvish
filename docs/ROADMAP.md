@@ -111,4 +111,4 @@ Want to help? Pick an item from the roadmap and:
 
 ## Feedback
 
-Have ideas? Open an issue on [GitHub](https://github.com/LorenzoWynberg/intellij-elvish/issues).
+Have ideas? Open an issue on [GitHub](https://github.com/LorenzoWynberg/jetbrains-elvish/issues).

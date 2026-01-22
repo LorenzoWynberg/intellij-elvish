@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.elvish.plugin</id>
     <name>Elvish</name>
-    <vendor email="lorenzo@wynberg.dev" url="https://github.com/LorenzoWynberg/intellij-elvish">Lorenzo Wynberg</vendor>
+    <vendor email="lorenzo@wynberg.dev" url="https://github.com/LorenzoWynberg/jetbrains-elvish">Lorenzo Wynberg</vendor>
 
     <description><![CDATA[
     <p>Full-featured <a href="https://elv.sh">Elvish shell</a> language support for all JetBrains IDEs.</p>
@@ -35,7 +35,7 @@
         <li>Start coding with full language support!</li>
     </ol>
 
-    <p><strong>Open Source:</strong> <a href="https://github.com/LorenzoWynberg/intellij-elvish">GitHub Repository</a></p>
+    <p><strong>Open Source:</strong> <a href="https://github.com/LorenzoWynberg/jetbrains-elvish">GitHub Repository</a></p>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>

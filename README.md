@@ -82,7 +82,7 @@ Type abbreviation + `Tab` to expand code snippets:
 
 1. Build the plugin: `./gradlew buildPlugin`
 2. In your IDE: **Settings → Plugins → ⚙️ → Install Plugin from Disk**
-3. Select `build/distributions/intellij-elvish-*.zip`
+3. Select `build/distributions/jetbrains-elvish-*.zip`
 
 ### From Marketplace (Coming Soon)
 

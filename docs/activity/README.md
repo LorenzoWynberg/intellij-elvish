@@ -64,10 +64,17 @@ docs/activity/
         └── 2026-01-15.md
 ```
 
+**Before archiving:**
+1. Review the log for any learnings not yet captured in `docs/learnings/`
+2. Extract useful patterns, gotchas, or decisions to the appropriate learnings file
+3. Then move to archive
+
 **When to archive:** Move logs older than 7 days to `archive/YYYY-MM/` folder.
 
 **To archive manually:**
 ```bash
+# First: review log and extract learnings to docs/learnings/*.md
+# Then:
 mkdir -p docs/activity/archive/2026-01
 mv docs/activity/2026-01-15.md docs/activity/archive/2026-01/
 ```

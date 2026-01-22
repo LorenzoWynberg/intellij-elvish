@@ -52,6 +52,7 @@ Create or update `docs/activity/YYYY-MM-DD.md`:
 - Add entry when starting the task
 - Document decisions made
 - Update when task completes
+- Before archiving old logs: extract learnings to `docs/learnings/`
 - Archive logs older than 7 days to `docs/activity/archive/YYYY-MM/`
 
 ### 3. Scope

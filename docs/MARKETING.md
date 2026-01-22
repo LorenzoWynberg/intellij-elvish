@@ -14,11 +14,10 @@
 ### Editor Enhancements
 | Feature | Description | Effort |
 |---------|-------------|--------|
-| **More Live Templates** | `pipe`, `try`, `each`, `peach`, `defer` | Low |
+| **More Live Templates** | `pipe`, `defer`, `nop`, `edit` | Low |
 | **Surround With** | Wrap selection in `{ }`, `try { }`, etc. | Low |
 | **Smart Enter** | Auto-continue pipelines, lists | Medium |
-| **TODO Highlighting** | Highlight TODO/FIXME in comments | Low |
-| **Spell Checking** | Check spelling in comments/strings | Low |
+| **Quote Handling** | Smart quote insertion/pairing | Low |
 
 ### Advanced Features
 | Feature | Description | Effort |
@@ -158,9 +157,12 @@ Comprehensive support for the [Elvish shell](https://elv.sh) in JetBrains IDEs.
 - File type recognition
 - Syntax highlighting
 - LSP integration (completion, diagnostics, hover, go-to-def)
-- Run configurations
-- Live/file templates
+- Run configurations with gutter icons
+- 15 live templates + 2 file templates
 - Editor features (folding, structure, breadcrumbs)
+- TODO/FIXME highlighting
+- Spell checking in comments/strings
+- Commenter and brace matching
 
 ### v1.1.0 (Fast Follow)
 - Find usages
@@ -171,8 +173,8 @@ Comprehensive support for the [Elvish shell](https://elv.sh) in JetBrains IDEs.
 ### v1.2.0 (Polish)
 - Semantic highlighting
 - Inlay hints
-- TODO highlighting
-- Spell checking
+- Surround with actions
+- Smart enter handling
 
 ### v2.0.0 (Advanced)
 - REPL integration

@@ -6,18 +6,22 @@ Story: {{CURRENT_STORY}} | Branch: {{BRANCH}} | Attempt: {{ATTEMPT}} | Iteration
 Dependencies (completed): {{DEPENDENCIES}}
 
 ## 1. Load Context
-Read: `scripts/ralph/prd.json` (acceptance criteria), `scripts/ralph/progress.txt` (patterns), `CLAUDE.md` (conventions)
+Read these files first:
+- `scripts/ralph/prd.json` - acceptance criteria for {{CURRENT_STORY}}
+- `docs/learnings.md` - **consolidated learnings** (patterns, gotchas, best practices)
+- `scripts/ralph/progress.txt` - story history and codebase patterns
+- `CLAUDE.md` - project conventions
 
 If attempt > 1: check `git log` and `git diff` for previous work.
 
 **Activity Log:** Create or update `docs/activity/YYYY-MM-DD.md` (today's date). Add entry for starting work on {{CURRENT_STORY}}.
 
-### Recent Activity Logs (Learn from these)
-Review the following recent activity logs for patterns, decisions, and learnings that may apply to {{CURRENT_STORY}}:
+### Recent Activity Logs (Detailed Context)
+Review these recent activity logs for detailed context on recent work:
 
 {{RECENT_ACTIVITY_LOGS}}
 
-**Important:** After completing {{CURRENT_STORY}}, add any new learnings from this work to `progress.txt` under the appropriate section (Codebase Patterns, Architecture Decisions, or a new story entry). This helps future iterations avoid repeating mistakes and build on established patterns.
+**Learning Loop:** After completing {{CURRENT_STORY}}, add any NEW learnings to `docs/learnings.md` under the appropriate category. This builds institutional knowledge for future iterations.
 
 ## 2. Scope
 Implement ONLY {{CURRENT_STORY}}. No refactoring unrelated code. Note other issues in Learnings only.
@@ -84,6 +88,7 @@ Commit docs separately: `git commit -m "docs: update for {{CURRENT_STORY}}"`
 ## 8. On SUCCESS
 
 Update these files:
+- `docs/learnings.md`: Add any NEW learnings under the appropriate category (Elvish Language, IntelliJ Plugin Development, Testing, etc.)
 - `progress.txt`: Add entry with date, changes, learnings (include any refactoring done)
 - `prd.json`: Set `"passes": true`
 - `scripts/ralph/state.json`: Reset to `{"version":1,"current_story":null,"status":"idle","branch":null,"started_at":null,"last_updated":null,"attempts":0,"error":null,"checkpoints":[]}`

@@ -78,6 +78,7 @@ OPTIONS:
   -h, --help              Show this help message
 
 FEATURES:
+  - Real-time streaming: See Claude output as it happens (via stream-json + jq)
   - State persistence: Tracks current story across invocations
   - Branch naming: Creates feat/story-<phase>.<epic>.<story> branches (e.g., feat/story-4.1.1)
   - Self-review cycle: Agent reviews work, suggests improvements, iterates until done
@@ -544,7 +545,11 @@ while (< $current-iteration $max-iterations) {
 
   ralph-status "Invoking Claude CLI..."
   ralph-dim "  This may take several minutes. Claude is working autonomously."
-  ralph-dim "  Output is being captured to file (streaming unreliable)."
+  if $quiet-mode {
+    ralph-dim "  Quiet mode: output captured to file only."
+  } else {
+    ralph-dim "  Streaming mode: real-time output via stream-json + jq."
+  }
   ralph-dim "  Waiting for completion signal..."
   echo ""
   echo $C_DIM"────────────────── Claude Working ──────────────────"$C_RESET
@@ -555,10 +560,35 @@ while (< $current-iteration $max-iterations) {
   var prompt-tmp = (mktemp)
   echo $iteration-prompt > $prompt-tmp
   try {
-    # Always run in quiet mode - streaming doesn't work reliably
-    # Claude output is captured to file for signal detection
-    # Use timeout to prevent indefinite hangs
-    timeout $claude-timeout bash -c 'claude --dangerously-skip-permissions --print < "$1"' _ $prompt-tmp > $output-file 2>&1
+    if $quiet-mode {
+      # Quiet mode: capture output to file, no streaming
+      timeout $claude-timeout bash -c 'claude --dangerously-skip-permissions --print < "$1"' _ $prompt-tmp > $output-file 2>&1
+    } else {
+      # Streaming mode: use stream-json + jq for real-time output
+      # jq filters extract readable text from verbose JSON stream
+      # tee captures full output for completion signal detection
+      timeout $claude-timeout bash -c '
+        stream_text='\''select(.type == "assistant").message.content[]? | select(.type == "text").text // empty | gsub("\n"; "\r\n") | . + "\r\n\n"'\''
+        final_result='\''select(.type == "result").result // empty'\''
+
+        claude --dangerously-skip-permissions --print --output-format stream-json < "$1" 2>&1 \
+          | grep --line-buffered "^{" \
+          | tee "$2" \
+          | jq --unbuffered -rj "$stream_text" 2>/dev/null || true
+
+        # Extract final result text for signal detection
+        jq -rs "$final_result" "$2" >> "$2.result" 2>/dev/null || true
+      ' _ $prompt-tmp $output-file
+
+      # Use the extracted result if available, otherwise use raw output
+      if (path:is-regular $output-file".result") {
+        var result-content = (cat $output-file".result" | slurp)
+        if (not (eq $result-content "")) {
+          echo $result-content > $output-file
+        }
+        rm -f $output-file".result"
+      }
+    }
     var claude-end = (date +%s)
     var claude-duration = (- $claude-end $claude-start)
     echo $C_DIM"───────────────────────────────────────────────────"$C_RESET
@@ -574,6 +604,7 @@ while (< $current-iteration $max-iterations) {
     }
   } finally {
     rm -f $prompt-tmp
+    rm -f $output-file".result" 2>/dev/null
   }
 
   # Show output file size as indicator of activity
